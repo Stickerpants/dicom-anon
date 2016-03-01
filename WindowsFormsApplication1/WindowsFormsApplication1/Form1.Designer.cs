@@ -57,7 +57,7 @@
             this.Input.Padding = new System.Windows.Forms.Padding(3);
             this.Input.Size = new System.Drawing.Size(1056, 569);
             this.Input.TabIndex = 0;
-            this.Input.Text = "tabPage1";
+            this.Input.Text = "Input";
             this.Input.UseVisualStyleBackColor = true;
             // 
             // tabPage2
@@ -67,7 +67,7 @@
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(1056, 569);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.Text = "Anonymize";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // tabPage3
@@ -77,7 +77,7 @@
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage3.Size = new System.Drawing.Size(1056, 569);
             this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "tabPage3";
+            this.tabPage3.Text = "Listen";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // tabPage4
@@ -87,7 +87,7 @@
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage4.Size = new System.Drawing.Size(1056, 569);
             this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "tabPage4";
+            this.tabPage4.Text = "Send";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // tabPage5
@@ -97,7 +97,7 @@
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage5.Size = new System.Drawing.Size(1056, 569);
             this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "tabPage5";
+            this.tabPage5.Text = "View";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
             // Form1

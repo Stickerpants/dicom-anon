@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Dicom;
+
 
 namespace WindowsFormsApplication1
 {
@@ -15,6 +17,24 @@ namespace WindowsFormsApplication1
         public Form1()
         {
             InitializeComponent();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            DicomSender send = new DicomSender();
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            DialogResult result = openFileDialog1.ShowDialog(); // Show the dialog.
+            if (result == DialogResult.OK) // Test result.
+            {
+                this.textBox3.Text = openFileDialog1.FileName;
+                send.sendDicom(DicomFile.Open(@""+this.textBox3.Text));
+
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Listener list = new Listener();
         }
     }
 }

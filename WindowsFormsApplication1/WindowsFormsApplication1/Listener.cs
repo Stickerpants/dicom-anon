@@ -9,19 +9,30 @@ namespace WindowsFormsApplication1
 {
     class Listener
     {
-        DicomServer<DicomCEchoProvider> listener;
-        DicomClient client;
-        DicomAssociation assoc;
-        DicomCMoveResponse cMove;
-        
+        DicomServer<DicomCStoreProvider> listener;
+        int port;
 
-        public Listener()
+        public Listener(int port = 5000)
         {
+            port = 5000;
+
             //use the designated DICOM port as the default
-            listener = new DicomServer<DicomCEchoProvider>(104);
-            assoc = new DicomAssociation();
+            listener = new DicomServer<DicomCStoreProvider>(port);
 
         }
+
+        public void stopListening()
+        {
+            listener.Stop();
+        }
+
+        public void startListening()
+        {
+            listener = new DicomServer<DicomCStoreProvider>(port);
+        }
+        
+        //getter & setter for the port to make it configurable
+        public int Port { get; set;}
 
     }
 }

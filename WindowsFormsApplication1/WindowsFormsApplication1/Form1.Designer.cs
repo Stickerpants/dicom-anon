@@ -34,12 +34,18 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.button1 = new System.Windows.Forms.Button();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.currentFileLabel = new System.Windows.Forms.Label();
+            this.informationLabel = new System.Windows.Forms.Label();
+            this.informationBox = new System.Windows.Forms.TextBox();
+            this.goRight = new System.Windows.Forms.Button();
+            this.goLeft = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.directoryBox = new System.Windows.Forms.TextBox();
+            this.imageDisplay = new System.Windows.Forms.PictureBox();
+            this.directoryOpen = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imageDisplay)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -53,7 +59,7 @@
             this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(709, 391);
+            this.tabControl1.Size = new System.Drawing.Size(948, 493);
             this.tabControl1.TabIndex = 0;
             // 
             // Input
@@ -102,52 +108,121 @@
             // 
             // tabPage5
             // 
-            this.tabPage5.Controls.Add(this.pictureBox1);
-            this.tabPage5.Controls.Add(this.button1);
+            this.tabPage5.Controls.Add(this.currentFileLabel);
+            this.tabPage5.Controls.Add(this.informationLabel);
+            this.tabPage5.Controls.Add(this.informationBox);
+            this.tabPage5.Controls.Add(this.goRight);
+            this.tabPage5.Controls.Add(this.goLeft);
+            this.tabPage5.Controls.Add(this.label1);
+            this.tabPage5.Controls.Add(this.directoryBox);
+            this.tabPage5.Controls.Add(this.imageDisplay);
+            this.tabPage5.Controls.Add(this.directoryOpen);
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage5.Size = new System.Drawing.Size(701, 365);
+            this.tabPage5.Size = new System.Drawing.Size(940, 467);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "View";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // currentFileLabel
             // 
-            this.button1.Location = new System.Drawing.Point(48, 337);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Open";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.currentFileLabel.AutoSize = true;
+            this.currentFileLabel.Location = new System.Drawing.Point(8, 12);
+            this.currentFileLabel.Name = "currentFileLabel";
+            this.currentFileLabel.Size = new System.Drawing.Size(90, 13);
+            this.currentFileLabel.TabIndex = 8;
+            this.currentFileLabel.Text = "No input directory";
             // 
-            // openFileDialog1
+            // informationLabel
             // 
-            this.openFileDialog1.FileName = "openFileDialog1";
-            this.openFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
+            this.informationLabel.AutoSize = true;
+            this.informationLabel.Location = new System.Drawing.Point(480, 12);
+            this.informationLabel.Name = "informationLabel";
+            this.informationLabel.Size = new System.Drawing.Size(59, 13);
+            this.informationLabel.TabIndex = 7;
+            this.informationLabel.Text = "Information";
             // 
-            // pictureBox1
+            // informationBox
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(90, 21);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(466, 269);
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
+            this.informationBox.Location = new System.Drawing.Point(480, 31);
+            this.informationBox.Multiline = true;
+            this.informationBox.Name = "informationBox";
+            this.informationBox.ReadOnly = true;
+            this.informationBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.informationBox.Size = new System.Drawing.Size(448, 393);
+            this.informationBox.TabIndex = 6;
+            this.informationBox.WordWrap = false;
+            // 
+            // goRight
+            // 
+            this.goRight.Location = new System.Drawing.Point(226, 401);
+            this.goRight.Name = "goRight";
+            this.goRight.Size = new System.Drawing.Size(75, 23);
+            this.goRight.TabIndex = 5;
+            this.goRight.Text = "Right";
+            this.goRight.UseVisualStyleBackColor = true;
+            this.goRight.Click += new System.EventHandler(this.goRight_Click);
+            // 
+            // goLeft
+            // 
+            this.goLeft.Location = new System.Drawing.Point(145, 401);
+            this.goLeft.Name = "goLeft";
+            this.goLeft.Size = new System.Drawing.Size(75, 23);
+            this.goLeft.TabIndex = 4;
+            this.goLeft.Text = "Left";
+            this.goLeft.UseVisualStyleBackColor = true;
+            this.goLeft.Click += new System.EventHandler(this.goLeft_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(8, 441);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(49, 13);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Directory";
+            // 
+            // directoryBox
+            // 
+            this.directoryBox.Location = new System.Drawing.Point(63, 438);
+            this.directoryBox.Name = "directoryBox";
+            this.directoryBox.Size = new System.Drawing.Size(238, 20);
+            this.directoryBox.TabIndex = 2;
+            this.directoryBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.directoryBox_KeyPress);
+            // 
+            // imageDisplay
+            // 
+            this.imageDisplay.Location = new System.Drawing.Point(8, 31);
+            this.imageDisplay.Name = "imageDisplay";
+            this.imageDisplay.Size = new System.Drawing.Size(466, 364);
+            this.imageDisplay.TabIndex = 1;
+            this.imageDisplay.TabStop = false;
+            // 
+            // directoryOpen
+            // 
+            this.directoryOpen.Location = new System.Drawing.Point(307, 435);
+            this.directoryOpen.Name = "directoryOpen";
+            this.directoryOpen.Size = new System.Drawing.Size(75, 23);
+            this.directoryOpen.TabIndex = 0;
+            this.directoryOpen.Text = "Open";
+            this.directoryOpen.UseVisualStyleBackColor = true;
+            this.directoryOpen.Click += new System.EventHandler(this.directoryOpen_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(725, 407);
+            this.ClientSize = new System.Drawing.Size(967, 512);
             this.Controls.Add(this.tabControl1);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Form1";
             this.tabControl1.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.tabPage5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imageDisplay)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -160,9 +235,15 @@
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.TabPage tabPage5;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button directoryOpen;
+        private System.Windows.Forms.PictureBox imageDisplay;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox directoryBox;
+        private System.Windows.Forms.Button goRight;
+        private System.Windows.Forms.Button goLeft;
+        private System.Windows.Forms.Label informationLabel;
+        private System.Windows.Forms.TextBox informationBox;
+        private System.Windows.Forms.Label currentFileLabel;
     }
 }
 

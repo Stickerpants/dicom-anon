@@ -59,15 +59,17 @@ namespace WindowsFormsApplication1
                     //read through the DICOM file
                     DicomReaderResult result;
                     string filename = textBox1.Text;
+                    
 
                     //using the validsource_returnsuccess example
-                    using(var Stream = File.OpenRead(filename))
+                    using(var Stream = File.OpenRead(filename)) 
                     {
+                        DicomFile dicomfile = new DicomFile();
                         dfr = new DicomFileReader();
                         var source = new StreamByteSource(Stream);
-                  
-                        var fileMeta = new DicomFileMetaInformation();
-                        var dataSet = new DicomDataset();
+
+                        var fileMeta = dicomfile.FileMetaInfo;
+                        var dataSet = dicomfile.Dataset;
 
                         var dataSetReader1 = new DicomDatasetReaderObserver(fileMeta);
                         var dataSetReader2 = new DicomDatasetReaderObserver(dataSet);
@@ -79,20 +81,24 @@ namespace WindowsFormsApplication1
                             //var file = IOManager.CreateFileReference(filename);
                             //var target = new FileByteTarget(file);
                             //dfw = new DicomFileWriter(new DicomWriteOptions());
+                            
 
                             /*when an element in the taglist matches a tag in the
                             dicom file, replace the information with "placeholder".
-                            QUESTIONS: what would the index be in dataset.get<string>?
-                            is a dicomfilewriter even necessary?*/
-                            
+                            QUESTIONS: is a dicomfilewriter necessary?*/
+                      
+
                             foreach (string element in tagList)
                             {
-                                DicomTag tag = DicomTag.Parse(element);
-                                string info = dataSet.Get<string>(tag, 3);
+                                //gets rid of spaces in user input
+                                //also need to make case insensitive
+                                string spaceless = element.Replace(" ", string.Empty);
+                                DicomTag tag = DicomTag.Parse(spaceless);
+                                
                                 if (dataSet.Contains(tag))
                                 {
-                                    
-                                    info = "PLACEHOLDER";
+                                    string info = dataSet.Get<string>(tag, "not contained");
+                                    tag.ToString().Replace(info, "placeholder");
                                     //dfw.Write(target, fileMeta, dataSet);
                                 }
                             }

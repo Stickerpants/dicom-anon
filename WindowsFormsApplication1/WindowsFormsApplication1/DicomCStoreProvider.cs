@@ -7,8 +7,34 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApplication1
 {
-    public class DicomCStoreProvider : DicomService, IDicomServiceProvider, IDicomCStoreProvider
+    public class DicomCStoreProvider : DicomService, IDicomServiceProvider, IDicomCStoreProvider, IDicomCEchoProvider
     {
+        private static DicomTransferSyntax[] AcceptedTransferSyntaxes = new DicomTransferSyntax[] {
+                DicomTransferSyntax.ExplicitVRLittleEndian,
+                DicomTransferSyntax.ExplicitVRBigEndian,
+                DicomTransferSyntax.ImplicitVRLittleEndian
+            };
+
+        private static DicomTransferSyntax[] AcceptedImageTransferSyntaxes = new DicomTransferSyntax[] {
+				// Lossless
+				DicomTransferSyntax.JPEGLSLossless,
+                DicomTransferSyntax.JPEG2000Lossless,
+                DicomTransferSyntax.JPEGProcess14SV1,
+                DicomTransferSyntax.JPEGProcess14,
+                DicomTransferSyntax.RLELossless,
+			
+				// Lossy
+				DicomTransferSyntax.JPEGLSNearLossless,
+                DicomTransferSyntax.JPEG2000Lossy,
+                DicomTransferSyntax.JPEGProcess1,
+                DicomTransferSyntax.JPEGProcess2_4,
+
+				// Uncompressed
+				DicomTransferSyntax.ExplicitVRLittleEndian,
+                DicomTransferSyntax.ExplicitVRBigEndian,
+                DicomTransferSyntax.ImplicitVRLittleEndian
+            };
+
         public DicomCStoreProvider(INetworkStream stream, Encoding fallbackEncoding, Logger log)
             : base((System.IO.Stream)stream, fallbackEncoding, log)
         {
@@ -22,11 +48,10 @@ namespace WindowsFormsApplication1
             //call anonymization method
             //update crosswalk (might be part of anonymization)
             //send file to host
-            testing(file);
 
             DicomSender send = new DicomSender();
-            send.sendDicom(file);
             MessageBox.Show("recieved dicom file: " + file.Dataset.Get<String>(DicomTag.DateTime));
+            send.sendDicom(file);
             return new DicomCStoreResponse(request, DicomStatus.Success);
 
         }
@@ -50,22 +75,31 @@ namespace WindowsFormsApplication1
         }
 
         public void OnReceiveAssociationRequest(DicomAssociation association)
-        {
-
+        {               
             MessageBox.Show("got here");
+
+            if (association.CalledAE != "STORESCP")
+            {
+                SendAssociationReject(DicomRejectResult.Permanent, DicomRejectSource.ServiceUser, DicomRejectReason.CalledAENotRecognized);
+                return;
+            }
+
             foreach (var pc in association.PresentationContexts)
             {
-                if (pc.AbstractSyntax == DicomUID.Verification) pc.SetResult(DicomPresentationContextResult.Accept);
-                else pc.SetResult(DicomPresentationContextResult.RejectAbstractSyntaxNotSupported);
+                if (pc.AbstractSyntax == DicomUID.Verification)
+                    pc.AcceptTransferSyntaxes(AcceptedTransferSyntaxes);
+                else if (pc.AbstractSyntax.StorageCategory != DicomStorageCategory.None)
+                    pc.AcceptTransferSyntaxes(AcceptedImageTransferSyntaxes);
             }
+
             SendAssociationAccept(association);
 
         }
 
-        //test method to confirm DICOM received
-        public void testing(DicomFile file)
+        public DicomCEchoResponse OnCEchoRequest(DicomCEchoRequest request)
         {
-            MessageBox.Show("file received getting date tag: /r/n"+file.Dataset.Get<String>(DicomTag.Date));
+            return new DicomCEchoResponse(request, DicomStatus.Success);
         }
+        
     }
 }

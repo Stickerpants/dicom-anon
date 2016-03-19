@@ -19,7 +19,7 @@ namespace WindowsFormsApplication1
             client = new DicomClient();
         }
 
-        public void sendDicom(DicomFile file, String targetIP="10.7.201.228", int port = 5000, Boolean useTLS = false, String CallingAE = "Tony", String CalledAE = "AE_TITLE")
+        public void sendDicom(DicomFile file, String targetIP="192.168.198.1", int port = 5000, Boolean useTLS = false, String CallingAE = "Tony", String CalledAE = "Tony")
         {
 
             //adds dicom file to be sent with new request

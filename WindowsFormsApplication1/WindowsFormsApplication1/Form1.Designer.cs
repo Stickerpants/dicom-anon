@@ -32,7 +32,14 @@
             this.Input = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.Listen = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.sendFile = new System.Windows.Forms.TextBox();
+            this.sendButton = new System.Windows.Forms.Button();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.tabControl1.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             this.port_value = new System.Windows.Forms.TabPage();
             this.help_container = new System.Windows.Forms.GroupBox();
             this.help_text = new System.Windows.Forms.Label();
@@ -101,8 +108,8 @@
             // 
             // tabPage3
             // 
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Margin = new System.Windows.Forms.Padding(2);
+            this.tabPage3.Controls.Add(this.Listen);
+            this.tabPage3.Location = new System.Drawing.Point(4, 29);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(2);
             this.tabPage3.Size = new System.Drawing.Size(701, 365);
@@ -110,10 +117,21 @@
             this.tabPage3.Text = "Listen";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // Listen
+            // 
+            this.Listen.Location = new System.Drawing.Point(343, 196);
+            this.Listen.Name = "Listen";
+            this.Listen.Size = new System.Drawing.Size(338, 177);
+            this.Listen.TabIndex = 3;
+            this.Listen.Text = "listen";
+            this.Listen.UseVisualStyleBackColor = true;
+            this.Listen.Click += new System.EventHandler(this.button1_Click);
+            // 
             // tabPage4
             // 
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Margin = new System.Windows.Forms.Padding(2);
+            this.tabPage4.Controls.Add(this.sendFile);
+            this.tabPage4.Controls.Add(this.sendButton);
+            this.tabPage4.Location = new System.Drawing.Point(4, 29);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(2);
             this.tabPage4.Size = new System.Drawing.Size(701, 365);
@@ -121,7 +139,24 @@
             this.tabPage4.Text = "Send";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // port_value
+            // sendFile
+            // 
+            this.sendFile.Location = new System.Drawing.Point(260, 271);
+            this.sendFile.Name = "sendFile";
+            this.sendFile.Size = new System.Drawing.Size(382, 26);
+            this.sendFile.TabIndex = 3;
+            // 
+            // sendButton
+            // 
+            this.sendButton.Location = new System.Drawing.Point(648, 249);
+            this.sendButton.Name = "sendButton";
+            this.sendButton.Size = new System.Drawing.Size(148, 71);
+            this.sendButton.TabIndex = 2;
+            this.sendButton.Text = "send";
+            this.sendButton.UseVisualStyleBackColor = true;
+            this.sendButton.Click += new System.EventHandler(this.button3_Click_1);
+            // 
+            // tabPage5
             // 
             this.port_value.BackColor = System.Drawing.Color.Transparent;
             this.port_value.Controls.Add(this.help_container);
@@ -423,6 +458,10 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.Button Listen;
+        private System.Windows.Forms.TextBox sendFile;
+        private System.Windows.Forms.Button sendButton;
         private System.Windows.Forms.TabPage port_value;
         private System.Windows.Forms.Label local_ae_label;
         private System.Windows.Forms.Label local_port_label;

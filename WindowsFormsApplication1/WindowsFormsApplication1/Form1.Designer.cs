@@ -32,10 +32,10 @@
             this.Input = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.button1 = new System.Windows.Forms.Button();
+            this.Listen = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.button3 = new System.Windows.Forms.Button();
+            this.sendFile = new System.Windows.Forms.TextBox();
+            this.sendButton = new System.Windows.Forms.Button();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.tabControl1.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -77,7 +77,7 @@
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.button1);
+            this.tabPage3.Controls.Add(this.Listen);
             this.tabPage3.Location = new System.Drawing.Point(4, 29);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
@@ -86,20 +86,20 @@
             this.tabPage3.Text = "Listen";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // Listen
             // 
-            this.button1.Location = new System.Drawing.Point(343, 196);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(338, 177);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "listen";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.Listen.Location = new System.Drawing.Point(343, 196);
+            this.Listen.Name = "Listen";
+            this.Listen.Size = new System.Drawing.Size(338, 177);
+            this.Listen.TabIndex = 3;
+            this.Listen.Text = "listen";
+            this.Listen.UseVisualStyleBackColor = true;
+            this.Listen.Click += new System.EventHandler(this.button1_Click);
             // 
             // tabPage4
             // 
-            this.tabPage4.Controls.Add(this.textBox3);
-            this.tabPage4.Controls.Add(this.button3);
+            this.tabPage4.Controls.Add(this.sendFile);
+            this.tabPage4.Controls.Add(this.sendButton);
             this.tabPage4.Location = new System.Drawing.Point(4, 29);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
@@ -108,22 +108,22 @@
             this.tabPage4.Text = "Send";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // textBox3
+            // sendFile
             // 
-            this.textBox3.Location = new System.Drawing.Point(260, 271);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(382, 26);
-            this.textBox3.TabIndex = 3;
+            this.sendFile.Location = new System.Drawing.Point(260, 271);
+            this.sendFile.Name = "sendFile";
+            this.sendFile.Size = new System.Drawing.Size(382, 26);
+            this.sendFile.TabIndex = 3;
             // 
-            // button3
+            // sendButton
             // 
-            this.button3.Location = new System.Drawing.Point(648, 249);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(148, 71);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "send";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click_1);
+            this.sendButton.Location = new System.Drawing.Point(648, 249);
+            this.sendButton.Name = "sendButton";
+            this.sendButton.Size = new System.Drawing.Size(148, 71);
+            this.sendButton.TabIndex = 2;
+            this.sendButton.Text = "send";
+            this.sendButton.UseVisualStyleBackColor = true;
+            this.sendButton.Click += new System.EventHandler(this.button3_Click_1);
             // 
             // tabPage5
             // 
@@ -159,9 +159,9 @@
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.TabPage tabPage5;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button Listen;
+        private System.Windows.Forms.TextBox sendFile;
+        private System.Windows.Forms.Button sendButton;
     }
 }
 

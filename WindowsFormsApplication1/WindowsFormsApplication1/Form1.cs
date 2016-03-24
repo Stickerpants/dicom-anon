@@ -26,8 +26,8 @@ namespace WindowsFormsApplication1
             DialogResult result = openFileDialog1.ShowDialog(); // Show the dialog.
             if (result == DialogResult.OK) // Test result.
             {
-                this.textBox3.Text = openFileDialog1.FileName;
-                send.sendDicom(DicomFile.Open(@""+this.textBox3.Text));
+                this.sendFile.Text = openFileDialog1.FileName;
+                send.sendDicom(DicomFile.Open(@""+this.sendFile.Text));
 
             }
         }
@@ -44,8 +44,8 @@ namespace WindowsFormsApplication1
             DialogResult result = openFileDialog1.ShowDialog(); // Show the dialog.
             if (result == DialogResult.OK) // Test result.
             {
-                this.textBox3.Text = openFileDialog1.FileName;
-                send.sendDicom(DicomFile.Open(@"" + this.textBox3.Text));
+                this.sendFile.Text = openFileDialog1.FileName;
+                send.sendDicom(DicomFile.Open(@"" + this.sendFile.Text));
 
             }
         }

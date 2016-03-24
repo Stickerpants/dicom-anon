@@ -19,19 +19,18 @@ namespace WindowsFormsApplication1
             client = new DicomClient();
         }
 
-        public void sendDicom(DicomFile file, String targetIP="192.168.198.1", int port = 5000, Boolean useTLS = false, String CallingAE = "Tony", String CalledAE = "Tony")
+        public void sendDicom(DicomFile file, String targetIP="192.168.0.13", int port = 50000, Boolean useTLS = false, String CallingAE = "asdf", String CalledAE = "Tony")
         {
 
             //adds dicom file to be sent with new request
             client.AddRequest(new DicomCStoreRequest(file));
 
             //send file to destination specified 
-            try 
-                {
+            try{
                 client.Send(targetIP, port, useTLS, CallingAE, CalledAE);
             }
             catch(SocketException e){
-                MessageBox.Show("Error thing: " + e.Message);
+                MessageBox.Show("Error: " + e.Message);
             }
         }
 

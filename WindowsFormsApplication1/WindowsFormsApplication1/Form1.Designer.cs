@@ -68,7 +68,6 @@
             this.help_container.SuspendLayout();
             this.local_container.SuspendLayout();
             this.target_container.SuspendLayout();
->>>>>>> origin/nino
             this.SuspendLayout();
             // 
             // tabControl1

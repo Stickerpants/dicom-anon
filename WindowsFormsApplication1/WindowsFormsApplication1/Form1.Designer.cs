@@ -30,16 +30,22 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.Input = new System.Windows.Forms.TabPage();
+            this.Edit = new System.Windows.Forms.Button();
+            this.Submit = new System.Windows.Forms.Button();
+            this.Delete = new System.Windows.Forms.Button();
+            this.New = new System.Windows.Forms.Button();
+            this.existingParameters = new System.Windows.Forms.ListBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.Filepath = new System.Windows.Forms.TextBox();
+            this.OpenSingleFile = new System.Windows.Forms.Button();
             this.Anonymize = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.tabControl1.SuspendLayout();
+            this.Input.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -59,6 +65,12 @@
             // 
             // Input
             // 
+            this.Input.Controls.Add(this.Edit);
+            this.Input.Controls.Add(this.Submit);
+            this.Input.Controls.Add(this.Delete);
+            this.Input.Controls.Add(this.New);
+            this.Input.Controls.Add(this.existingParameters);
+            this.Input.Controls.Add(this.label2);
             this.Input.Location = new System.Drawing.Point(4, 22);
             this.Input.Margin = new System.Windows.Forms.Padding(2);
             this.Input.Name = "Input";
@@ -68,12 +80,68 @@
             this.Input.Text = "Input";
             this.Input.UseVisualStyleBackColor = true;
             // 
+            // Edit
+            // 
+            this.Edit.Location = new System.Drawing.Point(136, 223);
+            this.Edit.Name = "Edit";
+            this.Edit.Size = new System.Drawing.Size(75, 23);
+            this.Edit.TabIndex = 5;
+            this.Edit.Text = "Edit...";
+            this.Edit.UseVisualStyleBackColor = true;
+            this.Edit.Click += new System.EventHandler(this.Edit_Click_1);
+            // 
+            // Submit
+            // 
+            this.Submit.Location = new System.Drawing.Point(136, 193);
+            this.Submit.Name = "Submit";
+            this.Submit.Size = new System.Drawing.Size(75, 23);
+            this.Submit.TabIndex = 4;
+            this.Submit.Text = "Submit";
+            this.Submit.UseVisualStyleBackColor = true;
+            this.Submit.Click += new System.EventHandler(this.Submit_Click_1);
+            // 
+            // Delete
+            // 
+            this.Delete.Location = new System.Drawing.Point(47, 223);
+            this.Delete.Name = "Delete";
+            this.Delete.Size = new System.Drawing.Size(75, 23);
+            this.Delete.TabIndex = 3;
+            this.Delete.Text = "Delete...";
+            this.Delete.UseVisualStyleBackColor = true;
+            this.Delete.Click += new System.EventHandler(this.Delete_Click_1);
+            // 
+            // New
+            // 
+            this.New.Location = new System.Drawing.Point(47, 193);
+            this.New.Name = "New";
+            this.New.Size = new System.Drawing.Size(75, 23);
+            this.New.TabIndex = 2;
+            this.New.Text = "New...";
+            this.New.UseVisualStyleBackColor = true;
+            this.New.Click += new System.EventHandler(this.New_Click_1);
+            // 
+            // existingParameters
+            // 
+            this.existingParameters.FormattingEnabled = true;
+            this.existingParameters.Location = new System.Drawing.Point(47, 52);
+            this.existingParameters.Name = "existingParameters";
+            this.existingParameters.Size = new System.Drawing.Size(165, 134);
+            this.existingParameters.TabIndex = 1;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(44, 35);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(108, 13);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Existing Parameters...";
+            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.label1);
-            this.tabPage2.Controls.Add(this.textBox1);
-            this.tabPage2.Controls.Add(this.button3);
-            this.tabPage2.Controls.Add(this.button2);
+            this.tabPage2.Controls.Add(this.Filepath);
+            this.tabPage2.Controls.Add(this.OpenSingleFile);
             this.tabPage2.Controls.Add(this.Anonymize);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Margin = new System.Windows.Forms.Padding(2);
@@ -87,42 +155,32 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(174, 106);
+            this.label1.Location = new System.Drawing.Point(24, 106);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(51, 13);
             this.label1.TabIndex = 4;
             this.label1.Text = "File Path:";
             // 
-            // textBox1
+            // Filepath
             // 
-            this.textBox1.Location = new System.Drawing.Point(243, 103);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(150, 20);
-            this.textBox1.TabIndex = 3;
+            this.Filepath.Location = new System.Drawing.Point(81, 103);
+            this.Filepath.Name = "Filepath";
+            this.Filepath.Size = new System.Drawing.Size(150, 20);
+            this.Filepath.TabIndex = 3;
             // 
-            // button3
+            // OpenSingleFile
             // 
-            this.button3.Location = new System.Drawing.Point(267, 147);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(76, 40);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "Open Dicom Folder";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(267, 46);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(76, 35);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Open Single Dicom File";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.OpenSingleFile.Location = new System.Drawing.Point(105, 46);
+            this.OpenSingleFile.Name = "OpenSingleFile";
+            this.OpenSingleFile.Size = new System.Drawing.Size(76, 35);
+            this.OpenSingleFile.TabIndex = 1;
+            this.OpenSingleFile.Text = "Open Single Dicom File";
+            this.OpenSingleFile.UseVisualStyleBackColor = true;
+            this.OpenSingleFile.Click += new System.EventHandler(this.OpenSingleFile_Click);
             // 
             // Anonymize
             // 
-            this.Anonymize.Location = new System.Drawing.Point(39, 46);
+            this.Anonymize.Location = new System.Drawing.Point(312, 52);
             this.Anonymize.Name = "Anonymize";
             this.Anonymize.Size = new System.Drawing.Size(75, 23);
             this.Anonymize.TabIndex = 0;
@@ -173,6 +231,8 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.tabControl1.ResumeLayout(false);
+            this.Input.ResumeLayout(false);
+            this.Input.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.ResumeLayout(false);
@@ -188,10 +248,15 @@
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.Button Anonymize;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TextBox Filepath;
+        private System.Windows.Forms.Button OpenSingleFile;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button Edit;
+        private System.Windows.Forms.Button Submit;
+        private System.Windows.Forms.Button Delete;
+        private System.Windows.Forms.Button New;
+        private System.Windows.Forms.ListBox existingParameters;
+        private System.Windows.Forms.Label label2;
     }
 }
 

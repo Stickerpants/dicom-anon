@@ -4,6 +4,7 @@ using System.Text;
 using Dicom.Network;
 using Dicom;
 using System.Windows.Forms;
+using System.IO;
 
 namespace WindowsFormsApplication1
 {
@@ -35,8 +36,8 @@ namespace WindowsFormsApplication1
                 DicomTransferSyntax.ImplicitVRLittleEndian
             };
 
-        public DicomCStoreProvider(INetworkStream stream, Encoding fallbackEncoding, Logger log)
-            : base((System.IO.Stream)stream, fallbackEncoding, log)
+        public DicomCStoreProvider(Stream stream, Logger log)
+            : base(stream, log)
         {
         }
 

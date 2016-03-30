@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dicom.Network;
+using Dicom.Log;
 
 namespace WindowsFormsApplication1
 {
@@ -17,7 +18,7 @@ namespace WindowsFormsApplication1
             port = 5000;
 
             //use the designated DICOM port as the default
-            server = new DicomServer<DicomCStoreProvider>(port);
+            server = new DicomServer<DicomCStoreProvider>(port, null, null, ConsoleLogger.Instance);
 
         }
 

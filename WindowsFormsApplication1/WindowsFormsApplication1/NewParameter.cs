@@ -17,10 +17,25 @@ namespace WindowsFormsApplication1
 
         private Form1 mainForm = null;
 
-        public NewParameter(Form callingForm)
+        public NewParameter(Form callingForm, IEnumerable<XElement> ienum, string tit)
         {
             mainForm = callingForm as Form1;
             InitializeComponent();
+
+            if (tit != null)
+            {
+                TitleInput.Text = tit;
+            }
+
+            if (ienum != null)
+            {
+                string poptext = "";
+                foreach (XElement xelem in ienum)
+                {
+                    poptext = poptext + xelem.Name.ToString() + "\r\n";
+                }
+                this.parameterInput.Text = poptext;
+            }
         }
 
         private void NewParameter_Load(object sender, EventArgs e)
@@ -52,7 +67,7 @@ namespace WindowsFormsApplication1
 
             for (int i = 0; i < lns; i++)
             {
-                if (!parameters[i].Equals(""))
+                if (parameters[i] != null)
                 {
                     element.Add(new XElement(mainForm.RemoveWhiteSpace(parameters[i])));
                 }

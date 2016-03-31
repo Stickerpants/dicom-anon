@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -22,10 +23,19 @@ namespace WindowsFormsApplication1
     public partial class Form1 : Form
     {
         private XDocument xmlDoc = null;
+        StreamWriter sw = null;
+        private List<string> tagList = new List<string>();
 
         public Form1()
         {
-            xmlDoc = XDocument.Load("Patient1.xml");
+            try
+            {
+                xmlDoc = XDocument.Load("parameters.xml");
+            }
+            catch (FileNotFoundException g)
+            {
+                MessageBox.Show("File not found");
+            }
             InitializeComponent();
             ePlistBox();
         }
@@ -38,77 +48,35 @@ namespace WindowsFormsApplication1
         table for later reference */
         private void Anonymize_Click(object sender, EventArgs e)
         {
-            //this list is populated with tags from xml file
-            List<string> tagList = new List<string>();
 
-            //DicomFileReader dfr;
-            //DicomFileWriter dfw;
+            /*when an element in the taglist matches a tag in the
+            dicom file, replace the information with "placeholder"*/
+            string filename = Filepath.Text;
+            DicomFile file = DicomFile.Open(filename);
+            DicomDataset dataSet = file.Dataset;
+            DicomTag tag = null;
+            var ravioli = new List<dictItem>();
 
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Title = "Open XML File";
-            ofd.Filter = "XML|*.xml";
-
-            if (ofd.ShowDialog() == DialogResult.OK)
+            foreach (string input in tagList)
             {
-                XmlDocument xDoc = new XmlDocument();
-
-                try
+                ravioli = Lookup(input);
+                foreach (dictItem entry in ravioli)
                 {
-                    xDoc.Load(ofd.FileName);
+                    tag = entry.tag;
                 }
-                catch (XmlException g)
-                {
-                    MessageBox.Show("XML error");
-                }
-                /* The parameter in SelectNodes will change depending
-                 on what the xml file's nodes are defined as */
-
-                foreach (XmlNode node in xDoc.SelectNodes("/Root"))
-                {
-                    foreach (XmlNode node2 in node.ChildNodes)
-                    {
-                        foreach (XmlNode node3 in node2.ChildNodes)
-                        {
-                            tagList.Add(node3.Name);
-                        }
-                    }
-                }
-                foreach (string item in tagList)
-                {
-                    MessageBox.Show(item);
-                }
-                //send this tagList to the crosswalk table
-
-
-                /*when an element in the taglist matches a tag in the
-                dicom file, replace the information with "placeholder"*/
-                string filename = Filepath.Text;
-                DicomFile file = DicomFile.Open(filename);
-                DicomDataset dataSet = file.Dataset;
-                DicomTag tag = null;
-                var ravioli = new List<dictItem>();
-
-                foreach (string input in tagList)
-                {
-                    ravioli = Lookup(input);
-                    foreach (dictItem entry in ravioli)
-                    {
-                        tag = entry.tag;
-                    }
                     //need to make case insensitive
                     
                     //DicomTag tag = DicomTag.Parse(input);
 
-                    if (dataSet.Contains(tag))
-                    {
-                        dataSet.Add<string>(tag, "PLACEHOLDER");
-                                //string info = dataSet.Get<string>(tag, "not contained");
-                                //tag.ToString().Replace(info, "placeholder");
-                                //dfw.Write(target, fileMeta, dataSet);
-                    }
+                if (dataSet.Contains(tag))
+                {
+                    addToCrosswalk(tag.Element);
+                    dataSet.Add<string>(tag, "PLACEHOLDER");
+                    //string info = dataSet.Get<string>(tag, "not contained");
+                    //tag.ToString().Replace(info, "placeholder");
+                    //dfw.Write(target, fileMeta, dataSet);
                 }
             }
-            ofd.Dispose();
         }
 
         //Allows the user to open a Dicom File from their computer
@@ -158,13 +126,16 @@ namespace WindowsFormsApplication1
 
         private void New_Click_1(object sender, EventArgs e)
         {
-            NewParameter form = new NewParameter(this);
+            NewParameter form = new NewParameter(this, null, null);
             form.Show();
         }
 
+        //sets title to the selected string from the existing parameters box
         private void Submit_Click_1(object sender, EventArgs e)
         {
-
+            string title = this.existingParameters.SelectedItem.ToString();
+            addToList(title);
+            MessageBox.Show("The selected parameters have been added!");
         }
 
         private void Delete_Click_1(object sender, EventArgs e)
@@ -173,14 +144,21 @@ namespace WindowsFormsApplication1
             XNode x = xmlDoc.Root.Element(y);
             x.Remove();
 
-            xmlDoc.Save("Patient1.xml");
+            xmlDoc.Save("parameters.xml");
 
             ePlistBox();
         }
 
         private void Edit_Click_1(object sender, EventArgs e)
         {
+            string y = this.existingParameters.SelectedItem.ToString();
+            XElement x = xmlDoc.Root.Element(y);
+            IEnumerable<XElement> elementos = x.Descendants();
 
+            x.Remove();
+
+            NewParameter form = new NewParameter(this, elementos, y);
+            form.Show();
         }
 
         public List<dictItem> Lookup(String term)
@@ -267,6 +245,41 @@ namespace WindowsFormsApplication1
             group,
             all
         };
+
+        public void addToCrosswalk(List<string> tagList)
+        {
+            sw = new StreamWriter(File.OpenWrite("C:\\Users\\Tyler\\Documents\\Schoolwork\\Third Year\\COSC 310\\CrosswalkTable.txt"));
+            foreach (string item in tagList)
+            {
+                sw.Write(item + "    |    ");
+            }
+            sw.Dispose();
+        }
+
+        public void addToCrosswalk(ushort el)
+        {
+            sw = new StreamWriter(File.OpenWrite("C:\\Users\\Tyler\\Documents\\Schoolwork\\Third Year\\COSC 310\\CrosswalkTable.txt"));
+            sw.Write(el);
+            sw.Dispose();
+        }
+
+        //Searches through the xml file for the specified title and adds all child nodes to the tagList
+        public void addToList(string title)
+        {
+            XElement titleSearch = xmlDoc.Root.Element(title);
+            IEnumerable<XElement> children = titleSearch.Descendants();
+            foreach (XElement child in children)
+            {
+                tagList.Add(child.Name.ToString());
+            }
+
+            addToCrosswalk(tagList);
+        }
+
+        List<string> getList()
+        {
+            return tagList;
+        }
 
     }
 }

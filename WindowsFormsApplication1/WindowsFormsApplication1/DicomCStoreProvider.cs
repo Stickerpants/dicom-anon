@@ -48,10 +48,8 @@ namespace WindowsFormsApplication1
             //call anonymization method
             //update crosswalk (might be part of anonymization)
             //send file to host
-
-            DicomSender send = new DicomSender();
+            
             MessageBox.Show("recieved dicom file: " + file.Dataset.Get<String>(DicomTag.DateTime));
-            send.sendDicom(file);
             return new DicomCStoreResponse(request, DicomStatus.Success);
 
         }

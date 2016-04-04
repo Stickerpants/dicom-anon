@@ -651,27 +651,14 @@ namespace WindowsFormsApplication1
               target_port_combobox.Visible = true;
         }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            DicomSender send = new DicomSender();
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            DialogResult result = openFileDialog1.ShowDialog(); // Show the dialog.
-            if (result == DialogResult.OK) // Test result.
-            {
-                this.sendFile.Text = openFileDialog1.FileName;
-                send.sendDicom(DicomFile.Open(@""+this.sendFile.Text));
-
-            }
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
-            Listener list = new Listener();
+            Listener list = new Listener(int.Parse(this.local_port_textbox.Text));
         }
 
         private void button3_Click_1(object sender, EventArgs e)
         {
-            DicomSender send = new DicomSender();
+            DicomSender send = new DicomSender(this.target_ip_textbox.Text, int.Parse(this.target_port_textbox.Text), this.target_ae_textbox.Text, this.local_ae_textbox.Text);
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
             DialogResult result = openFileDialog1.ShowDialog(); // Show the dialog.
             if (result == DialogResult.OK) // Test result.

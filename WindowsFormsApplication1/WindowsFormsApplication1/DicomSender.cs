@@ -9,12 +9,24 @@ namespace WindowsFormsApplication1
     class DicomSender
     {
         DicomClient client;
-        public DicomSender()
+        String targetIP;
+        int port;
+        Boolean useTLS;
+        String callingAE;
+        String calledAE;
+
+        public DicomSender(String targetIP, int port, String callingAE, String calledAE, Boolean useTLS = false)
         {
+            this.targetIP = targetIP;
+            this.port = port;
+            this.useTLS = useTLS;
+            this.callingAE = callingAE;
+            this.calledAE = calledAE;
+
             client = new DicomClient();
         }
 
-        public void sendDicom(DicomFile file, String targetIP="192.168.0.13", int port = 11112, Boolean useTLS = false, String CallingAE = "Tony", String CalledAE = "Tony")
+        public void sendDicom(DicomFile file)
         {
             
             //adds dicom file to be sent with new request
@@ -22,7 +34,7 @@ namespace WindowsFormsApplication1
 
             //send file to destination specified 
             try{
-                client.Send(targetIP, port, useTLS, CallingAE, CalledAE);
+                client.Send(targetIP, port, useTLS, callingAE, calledAE);
             }
             catch(SocketException e){
                 MessageBox.Show("Error: " + e.Message);

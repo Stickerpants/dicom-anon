@@ -48,6 +48,8 @@ namespace WindowsFormsApplication1
             //call anonymization method
             //update crosswalk (might be part of anonymization)
             //send file to host
+            DicomSender send = new DicomSender("10.7.201.228",5000, "TONY", "AE_TITLE");
+            send.sendDicom(file);
             
             MessageBox.Show("recieved dicom file: " + file.Dataset.Get<String>(DicomTag.DateTime));
             return new DicomCStoreResponse(request, DicomStatus.Success);
@@ -74,13 +76,12 @@ namespace WindowsFormsApplication1
 
         public void OnReceiveAssociationRequest(DicomAssociation association)
         {               
-            MessageBox.Show("got here");
 
-            if (association.CalledAE != "STORESCP")
-            {
-                SendAssociationReject(DicomRejectResult.Permanent, DicomRejectSource.ServiceUser, DicomRejectReason.CalledAENotRecognized);
-                return;
-            }
+           // if (association.CalledAE != "STORESCP")
+            //{
+              //  SendAssociationReject(DicomRejectResult.Permanent, DicomRejectSource.ServiceUser, DicomRejectReason.CalledAENotRecognized);
+              //  return;
+            //}
 
             foreach (var pc in association.PresentationContexts)
             {

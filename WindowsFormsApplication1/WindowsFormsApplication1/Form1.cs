@@ -55,24 +55,34 @@ namespace WindowsFormsApplication1
             DicomFile file = DicomFile.Open(filename);
             DicomDataset dataSet = file.Dataset;
             DicomTag tag = null;
-            var ravioli = new List<dictItem>();
+            var patientInfo = new List<dictItem>();
 
             foreach (string input in tagList)
             {
-                ravioli = Lookup(input);
-                foreach (dictItem entry in ravioli)
+                //patientInfo = Lookup(input);
+                foreach (dictItem entry in patientInfo)
                 {
                     tag = entry.tag;
                 }
-                    //need to make case insensitive
-                    
-                    //DicomTag tag = DicomTag.Parse(input);
+                //need to make case insensitive
 
-                if (dataSet.Contains(tag))
+                //DicomTag tag = DicomTag.Parse(input);
+                DicomTag tagshit = new DicomTag(0002, 0000);
+
+                
+//                if (dataSet.Contains(tagshit))
                 {
-                    addToCrosswalk(tag.Element);
-                    dataSet.Add<string>(tag, "PLACEHOLDER");
-                    //string info = dataSet.Get<string>(tag, "not contained");
+
+                    addToCrosswalk(tagshit.Element);
+                    dataSet.Add<ushort>(tagshit, 1);
+                    
+                    try {
+                        file.Save(@"C:\\users\\Tyler\\Documents\\Schoolwork\\Third Year\\COSC 310\\Dentascan  0.75  H60s - 3\\IM-0001-1.dcm");
+                    }catch(IOException exc)
+                    {
+                        MessageBox.Show("Error Saving File: "+ exc.ToString());
+                    }
+                        //string info = dataSet.Get<string>(tag, "not contained");
                     //tag.ToString().Replace(info, "placeholder");
                     //dfw.Write(target, fileMeta, dataSet);
                 }

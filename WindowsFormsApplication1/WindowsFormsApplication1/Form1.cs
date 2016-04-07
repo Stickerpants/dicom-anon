@@ -56,7 +56,7 @@ namespace WindowsFormsApplication1
         {
 
             /*when an element in the taglist matches a tag in the
-            dicom file, replace the information with "placeholder"*/
+            dicom file, remove it from the dataset and add it to the crosswalk for later reference*/
             string filename = Filepath.Text;
             DicomFile file = DicomFile.Open(filename);
             DicomDataset dataSet = file.Dataset;
@@ -65,7 +65,7 @@ namespace WindowsFormsApplication1
 
             int i = 0;
 
-            ArrayList tags = new ArrayList();
+            List<DicomTag> tags = new List<DicomTag>();
 
             foreach (string input in tagList)
             {                     
@@ -82,6 +82,7 @@ namespace WindowsFormsApplication1
             }
 
             addPatientInfo(tags, dataSet, file.Dataset.Get<String>(DicomTag.PatientName));
+
             foreach (DicomTag thing in tags)
             {
                 MessageBox.Show("anonymizing tag " + thing.ToString());
@@ -182,14 +183,6 @@ namespace WindowsFormsApplication1
             form.Show();
         }
 
-        private enum Mode
-        {
-            tag,
-            desc,
-            group,
-            all
-        };
-
         //Searches through the xml file for the specified title and adds all child nodes to the tagList
         public void addToTagList(string title)
         {
@@ -240,7 +233,7 @@ namespace WindowsFormsApplication1
         //}
 
         //Writes the patient's information to the correct location in the crosswalk table
-        public void addPatientInfo(ArrayList tags, DicomDataset dataSet, string name)
+        public void addPatientInfo(List<DicomTag> tags, DicomDataset dataSet, string name)
         {
             string patientID = getID(name);
 
@@ -252,11 +245,10 @@ namespace WindowsFormsApplication1
                 {
                     sw.Write(crosswalkFormatter("ID: " + patientID, 10) + " |   ");
 
-                    //NOTE: DICOMTAG.SOMETHING DEPENDS ON THE KEYWORD ASSOCIATED WITH EACH TAG IN TAG
                     foreach (DicomTag tag in tags)
                     {
 
-                        sw.Write(tag.DictionaryEntry.Keyword + ": " + dataSet.Get<string>(DicomTag.PatientName) + "|   ");
+                        sw.Write(tag.DictionaryEntry.Keyword + ": " + dataSet.Get<string>(tag) + "|   ");
 
                     }
                     sw.WriteLine();
@@ -267,6 +259,7 @@ namespace WindowsFormsApplication1
             {
                 var fileread = File.ReadAllText(path);
                 
+                //If the patient already exists in the crosswalk, don't add them again
                 if (fileread.Contains(patientID))
                 {
                     MessageBox.Show("Patient already in crosswalk!");
@@ -281,7 +274,7 @@ namespace WindowsFormsApplication1
                         foreach (DicomTag tag in tags)
                         {
 
-                            sw.Write(tag.DictionaryEntry.Keyword + ": " + dataSet.Get<string>(DicomTag.PatientName) + "|   ");
+                            sw.Write(tag.DictionaryEntry.Keyword + ": " + dataSet.Get<string>(tag) + "|   ");
 
                         }
                         sw.WriteLine();
@@ -291,6 +284,7 @@ namespace WindowsFormsApplication1
             }
         }
 
+        //Gets the default hash code for each patient; to be used as the patientID in the crosswalk
         public string getID(string name)
         {
             return Math.Abs(name.GetHashCode()).ToString();

@@ -25,7 +25,7 @@ namespace WindowsFormsApplication1
         private XDocument xmlDoc = null;
         StreamWriter sw = null;
         private List<string> tagList = new List<string>();
-        private List<string> generalParameters = new List<string>();
+        //private List<string> generalParameters = new List<string>();
         string path;
 
         public Form1()
@@ -61,7 +61,7 @@ namespace WindowsFormsApplication1
             DicomFile file = DicomFile.Open(filename);
             DicomDataset dataSet = file.Dataset;
 
-            path = "C:\\Users\\Tyler\\Documents\\Schoolwork\\Third Year\\COSC 310\\CrosswalkTableTest.txt";
+            path = "C:\\Users\\Tyler\\Documents\\Schoolwork\\Third Year\\COSC 310\\CrosswalkTable.txt";
 
             int i = 0;
 
@@ -69,7 +69,6 @@ namespace WindowsFormsApplication1
 
             foreach (string input in tagList)
             {                     
-                //need to make case insensitive
 
                 foreach (DicomDictionaryEntry thing in DicomDictionary.Default)
                 {
@@ -80,12 +79,9 @@ namespace WindowsFormsApplication1
                     }
                 }
          
-                //string info = dataSet.Get<string>(tag, "not contained");
-                //tag.ToString().Replace(info, "placeholder");
-                //dfw.Write(target, fileMeta, dataSet);
             }
 
-            addPatientInfo(getGeneralParameters(), tags, file.Dataset.Get<String>(DicomTag.PatientName));
+            addPatientInfo(tags, dataSet, file.Dataset.Get<String>(DicomTag.PatientName));
             foreach (DicomTag thing in tags)
             {
                 MessageBox.Show("anonymizing tag " + thing.ToString());
@@ -206,23 +202,23 @@ namespace WindowsFormsApplication1
         }
 
         //A general set of parameters for every patient
-        List<string> getGeneralParameters()
-        {
+        //List<string> getGeneralParameters()
+        //{
      
-            generalParameters.Add("PatientName");
-            generalParameters.Add("PatientAge");
-            generalParameters.Add("PatientSex");
-            generalParameters.Add("PatientWeight");
-            generalParameters.Add("PatientHeight");
-            generalParameters.Add("ReferringPhysician");
-            generalParameters.Add("Address");
-            generalParameters.Add("PhoneNumber");
-            generalParameters.Add("BloodType");
-            generalParameters.Add("Priority");
-            generalParameters.Add("Status");
+            //generalParameters.Add("PatientName");
+            //generalParameters.Add("PatientAge");
+            //generalParameters.Add("PatientSex");
+            //generalParameters.Add("PatientWeight");
+            //generalParameters.Add("PatientHeight");
+            //generalParameters.Add("ReferringPhysician");
+            //generalParameters.Add("Address");
+            //generalParameters.Add("PhoneNumber");
+            //generalParameters.Add("BloodType");
+            //generalParameters.Add("Priority");
+            //generalParameters.Add("Status");
 
-            return generalParameters;
-        }
+            //return generalParameters;
+        //}
 
         List<string> gettagList()
         {
@@ -230,63 +226,68 @@ namespace WindowsFormsApplication1
         }
 
         //Writes the general set of parameters for every patient to the crosswalk
-        public void addParametersToCrosswalk(List<string> generalParameters)
-        {
-            using (StreamWriter sw = File.AppendText(path))
-            {
-                sw.Write(crosswalkFormatter("ID:", 10) + "|    ");
+        //public void addParametersToCrosswalk(List<string> generalParameters)
+        //{
+            //using (StreamWriter sw = File.AppendText(path))
+            //{
+                //sw.Write(crosswalkFormatter("ID:", 10) + "|    ");
 
-                foreach (string item in generalParameters)
-                {
-                    sw.Write(crosswalkFormatter(item + ":", 20) + "|    ");
-                }
-            }
-        }
+                //foreach (string item in generalParameters)
+                //{
+                    //sw.Write(crosswalkFormatter(item + ":", 20) + "|    ");
+                //}
+            //}
+        //}
 
         //Writes the patient's information to the correct location in the crosswalk table
-        public void addPatientInfo(List<string> generalParameters, ArrayList tags, string name)
+        public void addPatientInfo(ArrayList tags, DicomDataset dataSet, string name)
         {
             string patientID = getID(name);
-            addParametersToCrosswalk(generalParameters);
-            var fileread = File.ReadAllLines(path);
-            int lastLine = fileread.Length - 1;
 
-            //check if the patient is already in crosswalk
-            if (Array.Exists(fileread, element => element.Contains(patientID)))
+            if (!File.Exists(path))
             {
-                //Writes back the same file excluding the last line with the empty parameters
-                File.WriteAllLines(path, fileread.Take(fileread.Count() - 1));
-                MessageBox.Show("Patient already exists in crosswalk!");
-            }
+                MessageBox.Show("Crosswalk table is being created");
 
-            else
-            {
-
-                foreach (string generalparam in generalParameters)
+                using (StreamWriter sw = new StreamWriter(path, true))
                 {
+                    sw.Write(crosswalkFormatter("ID: " + patientID, 10) + " |   ");
 
-                    //if (Array.Exists<DicomTag>((DicomTag[])tags.ToArray(), element => element.DictionaryEntry.Name.Equals(generalparam)))
+                    //NOTE: DICOMTAG.SOMETHING DEPENDS ON THE KEYWORD ASSOCIATED WITH EACH TAG IN TAG
                     foreach (DicomTag tag in tags)
                     {
-                    
-                        if (tag.DictionaryEntry.Keyword.Equals(generalparam))
-                        {
 
-                            fileread[lastLine] = fileread[lastLine].Replace(generalparam + ":", generalparam + ":" + " actual value");
-                        }
-                   
-                        else
-                        {
+                        sw.Write(tag.DictionaryEntry.Keyword + ": " + dataSet.Get<string>(DicomTag.PatientName) + "|   ");
 
-                            fileread[lastLine] = fileread[lastLine].Replace(generalparam + ":", generalparam + ":" + " null");
-
-                        }
                     }
+                    sw.WriteLine();
                 }
-                fileread[lastLine] = fileread[lastLine].Replace("ID: ", "ID: " + patientID);
-                File.WriteAllLines(path, fileread);
+            }
 
-                MessageBox.Show("The patient has been added");
+            else if (File.Exists(path))
+            {
+                var fileread = File.ReadAllText(path);
+                
+                if (fileread.Contains(patientID))
+                {
+                    MessageBox.Show("Patient already in crosswalk!");
+                }
+
+                else
+                {
+                    using (StreamWriter sw = new StreamWriter(path, true))
+                    {
+                        sw.Write(crosswalkFormatter("ID: " + patientID, 10) + " |   ");
+
+                        foreach (DicomTag tag in tags)
+                        {
+
+                            sw.Write(tag.DictionaryEntry.Keyword + ": " + dataSet.Get<string>(DicomTag.PatientName) + "|   ");
+
+                        }
+                        sw.WriteLine();
+                    }
+                    MessageBox.Show("Patient added to crosswalk");
+                }
             }
         }
 

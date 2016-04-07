@@ -62,14 +62,14 @@ namespace WindowsFormsApplication1
             DicomTag tag = null;
 
             int i = 0;
-            
+
+            ArrayList tags = new ArrayList();
             foreach (string input in tagList)
             {
                                 
                 //need to make case insensitive
                 //DicomTag tag = DicomTag.Parse(input);
 
-                ArrayList tags = new ArrayList();
                 foreach (DicomDictionaryEntry thing in DicomDictionary.Default)
                 {
                     if (thing.Tag.ToString().Equals(input))
@@ -78,17 +78,17 @@ namespace WindowsFormsApplication1
                         tags.Add(thing.Tag);
                     }
                 }
-
-                foreach(DicomTag thing in tags)
-                {
-                    MessageBox.Show("anonymizing tag " + thing.ToString());
-                    dataSet.Remove(thing);
-                }
                 
                 //string info = dataSet.Get<string>(tag, "not contained");
                 //tag.ToString().Replace(info, "placeholder");
                 //dfw.Write(target, fileMeta, dataSet);
-                i++;
+              
+            }
+
+            foreach (DicomTag thing in tags)
+            {
+                MessageBox.Show("anonymizing tag " + thing.ToString());
+                dataSet.Remove(thing);
             }
 
             MessageBox.Show("writing new dicom file");
@@ -102,9 +102,11 @@ namespace WindowsFormsApplication1
                 MessageBox.Show("Error: " + exc.ToString());
             }
         }
+        
+        
 
-        //Allows the user to open a Dicom File from their computer
-        private void OpenSingleFile_Click(object sender, EventArgs e)
+//Allows the user to open a Dicom File from their computer
+private void OpenSingleFile_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Title = "Open DICOM File";

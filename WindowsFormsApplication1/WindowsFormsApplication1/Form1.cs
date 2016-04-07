@@ -701,5 +701,74 @@ namespace WindowsFormsApplication1
 
             }
         }
+
+        private void New_Click(object sender, EventArgs e)
+        {
+            NewParameter form = new NewParameter(this, null, null);
+            form.Show();
+        }
+
+        private void Submit_Click(object sender, EventArgs e)
+        {
+            string title = this.existingParameters.SelectedItem.ToString();
+            addToList(title);
+            MessageBox.Show("The selected parameters have been added!");
+        }
+
+        private void existingParameters_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void existingParameters_SelectedIndexChanged_2(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Delete_Click(object sender, EventArgs e)
+        {
+            string y = this.existingParameters.SelectedItem.ToString();
+            XNode x = xmlDoc.Root.Element(y);
+            x.Remove();
+
+            xmlDoc.Save("parameters.xml");
+
+            ePlistBox();
+        }
+
+        private void Edit_Click(object sender, EventArgs e)
+        {
+            string y = this.existingParameters.SelectedItem.ToString();
+            XElement x = xmlDoc.Root.Element(y);
+            IEnumerable<XElement> elementos = x.Descendants();
+
+            x.Remove();
+
+            NewParameter form = new NewParameter(this, elementos, y);
+            form.Show();
+        }
+
+        private void Listen_Click(object sender, EventArgs e)
+        {
+            Listener list = new Listener();
+        }
+
+        private void sendFile_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void sendButton_Click(object sender, EventArgs e)
+        {
+            DicomSender send = new DicomSender();
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            DialogResult result = openFileDialog1.ShowDialog(); // Show the dialog.
+            if (result == DialogResult.OK) // Test result.
+            {
+                this.sendFile.Text = openFileDialog1.FileName;
+                send.sendDicom(DicomFile.Open(@"" + this.sendFile.Text));
+
+            }
+        }
     }
 }

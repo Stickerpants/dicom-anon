@@ -231,20 +231,8 @@ namespace WindowsFormsApplication1
         // When the "Open" button is pushed
         private void directoryOpen_Click(object sender, EventArgs e)
         {
-            // If there's nothing useful then don't try to open the folder.
-            if(string.IsNullOrWhiteSpace(this.directoryBox.Text) || !Directory.Exists(this.directoryBox.Text))
-            {
-                MessageBox.Show(this, "Given directory path was not valid!");
-                return;
-            }
             // Populate list with filepaths from the given directory.
-            FileList = Directory.GetFiles(this.directoryBox.Text, "*.dcm");
-
-            // Reset to null if we got no files back.
-            if(FileList.Length == 0)
-            {
-                FileList = null;
-            }
+            FileList = Directory.GetFiles(this.directoryBox.Text);
             // Reset and refresh display.
             currentFile = 0;
             updateDisplay();
@@ -694,7 +682,7 @@ namespace WindowsFormsApplication1
 
         private void sendButton_Click(object sender, EventArgs e)
         {
-            DicomSender send = new DicomSender();
+            DicomSender send = new DicomSender(this.target_ip_textbox.Text, int.Parse(this.target_port_textbox.Text), this.target_ae_textbox.Text, this.local_ae_textbox.Text);
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
             DialogResult result = openFileDialog1.ShowDialog(); // Show the dialog.
             if (result == DialogResult.OK) // Test result.

@@ -37,7 +37,6 @@
             this.existingParameters = new System.Windows.Forms.ListBox();
             this.label2 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.label1 = new System.Windows.Forms.Label();
             this.Filepath = new System.Windows.Forms.TextBox();
             this.OpenSingleFile = new System.Windows.Forms.Button();
             this.Anonymize = new System.Windows.Forms.Button();
@@ -52,6 +51,7 @@
             this.informationBox = new System.Windows.Forms.TextBox();
             this.goRight = new System.Windows.Forms.Button();
             this.goLeft = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.directoryBox = new System.Windows.Forms.TextBox();
             this.imageDisplay = new System.Windows.Forms.PictureBox();
             this.directoryOpen = new System.Windows.Forms.Button();
@@ -99,11 +99,10 @@
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Controls.Add(this.port_value);
-            this.tabControl1.Location = new System.Drawing.Point(8, 8);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
+            this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(948, 493);
+            this.tabControl1.Size = new System.Drawing.Size(1422, 758);
             this.tabControl1.TabIndex = 0;
             // 
             // Input
@@ -114,20 +113,20 @@
             this.Input.Controls.Add(this.New);
             this.Input.Controls.Add(this.existingParameters);
             this.Input.Controls.Add(this.label2);
-            this.Input.Location = new System.Drawing.Point(4, 22);
-            this.Input.Margin = new System.Windows.Forms.Padding(2);
+            this.Input.Location = new System.Drawing.Point(4, 29);
             this.Input.Name = "Input";
-            this.Input.Padding = new System.Windows.Forms.Padding(2);
-            this.Input.Size = new System.Drawing.Size(940, 467);
+            this.Input.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.Input.Size = new System.Drawing.Size(1414, 725);
             this.Input.TabIndex = 0;
             this.Input.Text = "Input";
             this.Input.UseVisualStyleBackColor = true;
             // 
             // Edit
             // 
-            this.Edit.Location = new System.Drawing.Point(136, 223);
+            this.Edit.Location = new System.Drawing.Point(204, 343);
+            this.Edit.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Edit.Name = "Edit";
-            this.Edit.Size = new System.Drawing.Size(75, 23);
+            this.Edit.Size = new System.Drawing.Size(112, 35);
             this.Edit.TabIndex = 5;
             this.Edit.Text = "Edit...";
             this.Edit.UseVisualStyleBackColor = true;
@@ -135,9 +134,10 @@
             // 
             // Submit
             // 
-            this.Submit.Location = new System.Drawing.Point(136, 193);
+            this.Submit.Location = new System.Drawing.Point(204, 297);
+            this.Submit.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Submit.Name = "Submit";
-            this.Submit.Size = new System.Drawing.Size(75, 23);
+            this.Submit.Size = new System.Drawing.Size(112, 35);
             this.Submit.TabIndex = 4;
             this.Submit.Text = "Submit";
             this.Submit.UseVisualStyleBackColor = true;
@@ -145,9 +145,10 @@
             // 
             // Delete
             // 
-            this.Delete.Location = new System.Drawing.Point(47, 223);
+            this.Delete.Location = new System.Drawing.Point(70, 343);
+            this.Delete.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Delete.Name = "Delete";
-            this.Delete.Size = new System.Drawing.Size(75, 23);
+            this.Delete.Size = new System.Drawing.Size(112, 35);
             this.Delete.TabIndex = 3;
             this.Delete.Text = "Delete...";
             this.Delete.UseVisualStyleBackColor = true;
@@ -155,9 +156,10 @@
             // 
             // New
             // 
-            this.New.Location = new System.Drawing.Point(47, 193);
+            this.New.Location = new System.Drawing.Point(70, 297);
+            this.New.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.New.Name = "New";
-            this.New.Size = new System.Drawing.Size(75, 23);
+            this.New.Size = new System.Drawing.Size(112, 35);
             this.New.TabIndex = 2;
             this.New.Text = "New...";
             this.New.UseVisualStyleBackColor = true;
@@ -166,17 +168,20 @@
             // existingParameters
             // 
             this.existingParameters.FormattingEnabled = true;
-            this.existingParameters.Location = new System.Drawing.Point(47, 52);
+            this.existingParameters.ItemHeight = 20;
+            this.existingParameters.Location = new System.Drawing.Point(70, 80);
+            this.existingParameters.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.existingParameters.Name = "existingParameters";
-            this.existingParameters.Size = new System.Drawing.Size(165, 134);
+            this.existingParameters.Size = new System.Drawing.Size(246, 204);
             this.existingParameters.TabIndex = 1;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(44, 35);
+            this.label2.Location = new System.Drawing.Point(66, 54);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(108, 13);
+            this.label2.Size = new System.Drawing.Size(162, 20);
             this.label2.TabIndex = 0;
             this.label2.Text = "Existing Parameters...";
             // 
@@ -185,36 +190,28 @@
             this.tabPage2.Controls.Add(this.Filepath);
             this.tabPage2.Controls.Add(this.OpenSingleFile);
             this.tabPage2.Controls.Add(this.Anonymize);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Margin = new System.Windows.Forms.Padding(2);
+            this.tabPage2.Location = new System.Drawing.Point(4, 29);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage2.Size = new System.Drawing.Size(940, 467);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage2.Size = new System.Drawing.Size(1414, 725);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Anonymize";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(8, 441);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(49, 13);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Directory";
-            // 
             // Filepath
             // 
-            this.Filepath.Location = new System.Drawing.Point(81, 103);
+            this.Filepath.Location = new System.Drawing.Point(122, 158);
+            this.Filepath.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Filepath.Name = "Filepath";
-            this.Filepath.Size = new System.Drawing.Size(150, 20);
+            this.Filepath.Size = new System.Drawing.Size(223, 26);
             this.Filepath.TabIndex = 3;
             // 
             // OpenSingleFile
             // 
-            this.OpenSingleFile.Location = new System.Drawing.Point(105, 46);
+            this.OpenSingleFile.Location = new System.Drawing.Point(158, 71);
+            this.OpenSingleFile.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.OpenSingleFile.Name = "OpenSingleFile";
-            this.OpenSingleFile.Size = new System.Drawing.Size(76, 35);
+            this.OpenSingleFile.Size = new System.Drawing.Size(114, 54);
             this.OpenSingleFile.TabIndex = 1;
             this.OpenSingleFile.Text = "Open Single Dicom File";
             this.OpenSingleFile.UseVisualStyleBackColor = true;
@@ -222,9 +219,10 @@
             // 
             // Anonymize
             // 
-            this.Anonymize.Location = new System.Drawing.Point(312, 52);
+            this.Anonymize.Location = new System.Drawing.Point(468, 80);
+            this.Anonymize.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Anonymize.Name = "Anonymize";
-            this.Anonymize.Size = new System.Drawing.Size(75, 23);
+            this.Anonymize.Size = new System.Drawing.Size(112, 35);
             this.Anonymize.TabIndex = 0;
             this.Anonymize.Text = "Anonymize";
             this.Anonymize.UseVisualStyleBackColor = true;
@@ -233,20 +231,20 @@
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.Listen);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Margin = new System.Windows.Forms.Padding(2);
+            this.tabPage3.Location = new System.Drawing.Point(4, 29);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage3.Size = new System.Drawing.Size(940, 467);
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage3.Size = new System.Drawing.Size(1414, 725);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Listen";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // Listen
             // 
-            this.Listen.Location = new System.Drawing.Point(343, 196);
+            this.Listen.Location = new System.Drawing.Point(514, 302);
+            this.Listen.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Listen.Name = "Listen";
-            this.Listen.Size = new System.Drawing.Size(338, 177);
+            this.Listen.Size = new System.Drawing.Size(507, 272);
             this.Listen.TabIndex = 3;
             this.Listen.Text = "listen";
             this.Listen.UseVisualStyleBackColor = true;
@@ -256,27 +254,28 @@
             // 
             this.tabPage4.Controls.Add(this.sendFile);
             this.tabPage4.Controls.Add(this.sendButton);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Margin = new System.Windows.Forms.Padding(2);
+            this.tabPage4.Location = new System.Drawing.Point(4, 29);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage4.Size = new System.Drawing.Size(940, 467);
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage4.Size = new System.Drawing.Size(1414, 725);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Send";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // sendFile
             // 
-            this.sendFile.Location = new System.Drawing.Point(260, 271);
+            this.sendFile.Location = new System.Drawing.Point(390, 417);
+            this.sendFile.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.sendFile.Name = "sendFile";
-            this.sendFile.Size = new System.Drawing.Size(382, 20);
+            this.sendFile.Size = new System.Drawing.Size(571, 26);
             this.sendFile.TabIndex = 3;
             // 
             // sendButton
             // 
-            this.sendButton.Location = new System.Drawing.Point(648, 249);
+            this.sendButton.Location = new System.Drawing.Point(972, 383);
+            this.sendButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.sendButton.Name = "sendButton";
-            this.sendButton.Size = new System.Drawing.Size(148, 71);
+            this.sendButton.Size = new System.Drawing.Size(222, 109);
             this.sendButton.TabIndex = 2;
             this.sendButton.Text = "send";
             this.sendButton.UseVisualStyleBackColor = true;
@@ -293,11 +292,10 @@
             this.tabPage5.Controls.Add(this.directoryBox);
             this.tabPage5.Controls.Add(this.imageDisplay);
             this.tabPage5.Controls.Add(this.directoryOpen);
-            this.tabPage5.Location = new System.Drawing.Point(4, 22);
-            this.tabPage5.Margin = new System.Windows.Forms.Padding(2);
+            this.tabPage5.Location = new System.Drawing.Point(4, 29);
             this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage5.Size = new System.Drawing.Size(940, 467);
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage5.Size = new System.Drawing.Size(1414, 725);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "View";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -305,37 +303,41 @@
             // currentFileLabel
             // 
             this.currentFileLabel.AutoSize = true;
-            this.currentFileLabel.Location = new System.Drawing.Point(8, 12);
+            this.currentFileLabel.Location = new System.Drawing.Point(12, 18);
+            this.currentFileLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.currentFileLabel.Name = "currentFileLabel";
-            this.currentFileLabel.Size = new System.Drawing.Size(90, 13);
+            this.currentFileLabel.Size = new System.Drawing.Size(132, 20);
             this.currentFileLabel.TabIndex = 8;
             this.currentFileLabel.Text = "No input directory";
             // 
             // informationLabel
             // 
             this.informationLabel.AutoSize = true;
-            this.informationLabel.Location = new System.Drawing.Point(480, 12);
+            this.informationLabel.Location = new System.Drawing.Point(720, 18);
+            this.informationLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.informationLabel.Name = "informationLabel";
-            this.informationLabel.Size = new System.Drawing.Size(59, 13);
+            this.informationLabel.Size = new System.Drawing.Size(90, 20);
             this.informationLabel.TabIndex = 7;
             this.informationLabel.Text = "Information";
             // 
             // informationBox
             // 
-            this.informationBox.Location = new System.Drawing.Point(480, 31);
+            this.informationBox.Location = new System.Drawing.Point(720, 48);
+            this.informationBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.informationBox.Multiline = true;
             this.informationBox.Name = "informationBox";
             this.informationBox.ReadOnly = true;
             this.informationBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.informationBox.Size = new System.Drawing.Size(448, 393);
+            this.informationBox.Size = new System.Drawing.Size(670, 602);
             this.informationBox.TabIndex = 6;
             this.informationBox.WordWrap = false;
             // 
             // goRight
             // 
-            this.goRight.Location = new System.Drawing.Point(226, 401);
+            this.goRight.Location = new System.Drawing.Point(339, 617);
+            this.goRight.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.goRight.Name = "goRight";
-            this.goRight.Size = new System.Drawing.Size(75, 23);
+            this.goRight.Size = new System.Drawing.Size(112, 35);
             this.goRight.TabIndex = 5;
             this.goRight.Text = "Right";
             this.goRight.UseVisualStyleBackColor = true;
@@ -343,35 +345,49 @@
             // 
             // goLeft
             // 
-            this.goLeft.Location = new System.Drawing.Point(145, 401);
+            this.goLeft.Location = new System.Drawing.Point(218, 617);
+            this.goLeft.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.goLeft.Name = "goLeft";
-            this.goLeft.Size = new System.Drawing.Size(75, 23);
+            this.goLeft.Size = new System.Drawing.Size(112, 35);
             this.goLeft.TabIndex = 4;
             this.goLeft.Text = "Left";
             this.goLeft.UseVisualStyleBackColor = true;
             this.goLeft.Click += new System.EventHandler(this.goLeft_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 678);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(72, 20);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Directory";
+            // 
             // directoryBox
             // 
-            this.directoryBox.Location = new System.Drawing.Point(63, 438);
+            this.directoryBox.Location = new System.Drawing.Point(94, 674);
+            this.directoryBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.directoryBox.Name = "directoryBox";
-            this.directoryBox.Size = new System.Drawing.Size(238, 20);
+            this.directoryBox.Size = new System.Drawing.Size(355, 26);
             this.directoryBox.TabIndex = 2;
             this.directoryBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.directoryBox_KeyPress);
             // 
             // imageDisplay
             // 
-            this.imageDisplay.Location = new System.Drawing.Point(8, 31);
+            this.imageDisplay.Location = new System.Drawing.Point(12, 48);
+            this.imageDisplay.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.imageDisplay.Name = "imageDisplay";
-            this.imageDisplay.Size = new System.Drawing.Size(466, 364);
+            this.imageDisplay.Size = new System.Drawing.Size(699, 560);
             this.imageDisplay.TabIndex = 1;
             this.imageDisplay.TabStop = false;
             // 
             // directoryOpen
             // 
-            this.directoryOpen.Location = new System.Drawing.Point(307, 435);
+            this.directoryOpen.Location = new System.Drawing.Point(460, 669);
+            this.directoryOpen.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.directoryOpen.Name = "directoryOpen";
-            this.directoryOpen.Size = new System.Drawing.Size(75, 23);
+            this.directoryOpen.Size = new System.Drawing.Size(112, 35);
             this.directoryOpen.TabIndex = 0;
             this.directoryOpen.Text = "Open";
             this.directoryOpen.UseVisualStyleBackColor = true;
@@ -383,11 +399,10 @@
             this.port_value.Controls.Add(this.help_container);
             this.port_value.Controls.Add(this.local_container);
             this.port_value.Controls.Add(this.target_container);
-            this.port_value.Location = new System.Drawing.Point(4, 22);
-            this.port_value.Margin = new System.Windows.Forms.Padding(2);
+            this.port_value.Location = new System.Drawing.Point(4, 29);
             this.port_value.Name = "port_value";
-            this.port_value.Padding = new System.Windows.Forms.Padding(2);
-            this.port_value.Size = new System.Drawing.Size(940, 467);
+            this.port_value.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.port_value.Size = new System.Drawing.Size(1414, 725);
             this.port_value.TabIndex = 4;
             this.port_value.Text = "IP";
             // 
@@ -396,9 +411,11 @@
             this.help_container.Controls.Add(this.help_text2);
             this.help_container.Controls.Add(this.help_text);
             this.help_container.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            this.help_container.Location = new System.Drawing.Point(3, 310);
+            this.help_container.Location = new System.Drawing.Point(4, 477);
+            this.help_container.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.help_container.Name = "help_container";
-            this.help_container.Size = new System.Drawing.Size(693, 55);
+            this.help_container.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.help_container.Size = new System.Drawing.Size(1040, 85);
             this.help_container.TabIndex = 11;
             this.help_container.TabStop = false;
             this.help_container.Text = "Help";
@@ -407,9 +424,10 @@
             // 
             this.help_text2.AutoSize = true;
             this.help_text2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.help_text2.Location = new System.Drawing.Point(6, 30);
+            this.help_text2.Location = new System.Drawing.Point(9, 46);
+            this.help_text2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.help_text2.Name = "help_text2";
-            this.help_text2.Size = new System.Drawing.Size(272, 13);
+            this.help_text2.Size = new System.Drawing.Size(421, 20);
             this.help_text2.TabIndex = 12;
             this.help_text2.Text = "Recommended DICOM ports are 104, 11112, and 4242.";
             // 
@@ -417,9 +435,10 @@
             // 
             this.help_text.AutoSize = true;
             this.help_text.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.help_text.Location = new System.Drawing.Point(6, 17);
+            this.help_text.Location = new System.Drawing.Point(9, 26);
+            this.help_text.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.help_text.Name = "help_text";
-            this.help_text.Size = new System.Drawing.Size(339, 13);
+            this.help_text.Size = new System.Drawing.Size(534, 20);
             this.help_text.TabIndex = 11;
             this.help_text.Text = "Double click the field values to change them, and hit \'Enter\' to confirm.";
             // 
@@ -434,9 +453,11 @@
             this.local_container.Controls.Add(this.local_ip_label);
             this.local_container.Controls.Add(this.local_port_textbox);
             this.local_container.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.local_container.Location = new System.Drawing.Point(5, 5);
+            this.local_container.Location = new System.Drawing.Point(8, 8);
+            this.local_container.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.local_container.Name = "local_container";
-            this.local_container.Size = new System.Drawing.Size(352, 299);
+            this.local_container.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.local_container.Size = new System.Drawing.Size(528, 460);
             this.local_container.TabIndex = 1;
             this.local_container.TabStop = false;
             this.local_container.Text = "Local";
@@ -449,9 +470,10 @@
             "11112",
             "4242",
             "[Custom]"});
-            this.local_port_combobox.Location = new System.Drawing.Point(184, 151);
+            this.local_port_combobox.Location = new System.Drawing.Point(276, 232);
+            this.local_port_combobox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.local_port_combobox.Name = "local_port_combobox";
-            this.local_port_combobox.Size = new System.Drawing.Size(121, 21);
+            this.local_port_combobox.Size = new System.Drawing.Size(180, 28);
             this.local_port_combobox.TabIndex = 8;
             this.local_port_combobox.Text = "104";
             this.local_port_combobox.TextChanged += new System.EventHandler(this.local_port_combobox_TextChanged);
@@ -460,9 +482,10 @@
             // 
             this.local_ae_label.AutoSize = true;
             this.local_ae_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
-            this.local_ae_label.Location = new System.Drawing.Point(11, 45);
+            this.local_ae_label.Location = new System.Drawing.Point(16, 69);
+            this.local_ae_label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.local_ae_label.Name = "local_ae_label";
-            this.local_ae_label.Size = new System.Drawing.Size(142, 18);
+            this.local_ae_label.Size = new System.Drawing.Size(205, 26);
             this.local_ae_label.TabIndex = 0;
             this.local_ae_label.Text = "Application Entity:";
             // 
@@ -470,9 +493,10 @@
             // 
             this.local_port_label.AutoSize = true;
             this.local_port_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
-            this.local_port_label.Location = new System.Drawing.Point(31, 151);
+            this.local_port_label.Location = new System.Drawing.Point(46, 232);
+            this.local_port_label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.local_port_label.Name = "local_port_label";
-            this.local_port_label.Size = new System.Drawing.Size(122, 18);
+            this.local_port_label.Size = new System.Drawing.Size(173, 26);
             this.local_port_label.TabIndex = 3;
             this.local_port_label.Text = "Listening Port: ";
             // 
@@ -480,9 +504,10 @@
             // 
             this.local_ip_text.AutoSize = true;
             this.local_ip_text.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.local_ip_text.Location = new System.Drawing.Point(182, 100);
+            this.local_ip_text.Location = new System.Drawing.Point(273, 154);
+            this.local_ip_text.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.local_ip_text.Name = "local_ip_text";
-            this.local_ip_text.Size = new System.Drawing.Size(30, 18);
+            this.local_ip_text.Size = new System.Drawing.Size(46, 26);
             this.local_ip_text.TabIndex = 6;
             this.local_ip_text.Text = "null";
             // 
@@ -490,19 +515,21 @@
             // 
             this.local_ae_text.AutoSize = true;
             this.local_ae_text.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.local_ae_text.Location = new System.Drawing.Point(182, 45);
+            this.local_ae_text.Location = new System.Drawing.Point(273, 69);
+            this.local_ae_text.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.local_ae_text.Name = "local_ae_text";
-            this.local_ae_text.Size = new System.Drawing.Size(114, 18);
+            this.local_ae_text.Size = new System.Drawing.Size(170, 26);
             this.local_ae_text.TabIndex = 9;
             this.local_ae_text.Text = "local_ae_default";
             this.local_ae_text.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.local_ae_text_MouseDoubleClick);
             // 
             // local_ae_textbox
             // 
-            this.local_ae_textbox.Location = new System.Drawing.Point(184, 44);
+            this.local_ae_textbox.Location = new System.Drawing.Point(276, 68);
+            this.local_ae_textbox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.local_ae_textbox.MaxLength = 16;
             this.local_ae_textbox.Name = "local_ae_textbox";
-            this.local_ae_textbox.Size = new System.Drawing.Size(121, 20);
+            this.local_ae_textbox.Size = new System.Drawing.Size(180, 26);
             this.local_ae_textbox.TabIndex = 4;
             this.local_ae_textbox.Visible = false;
             this.local_ae_textbox.TextChanged += new System.EventHandler(this.local_ae_textbox_TextChanged);
@@ -513,17 +540,19 @@
             // 
             this.local_ip_label.AutoSize = true;
             this.local_ip_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
-            this.local_ip_label.Location = new System.Drawing.Point(54, 98);
+            this.local_ip_label.Location = new System.Drawing.Point(81, 151);
+            this.local_ip_label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.local_ip_label.Name = "local_ip_label";
-            this.local_ip_label.Size = new System.Drawing.Size(99, 18);
+            this.local_ip_label.Size = new System.Drawing.Size(143, 26);
             this.local_ip_label.TabIndex = 2;
             this.local_ip_label.Text = "IP Address: ";
             // 
             // local_port_textbox
             // 
-            this.local_port_textbox.Location = new System.Drawing.Point(184, 153);
+            this.local_port_textbox.Location = new System.Drawing.Point(276, 235);
+            this.local_port_textbox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.local_port_textbox.Name = "local_port_textbox";
-            this.local_port_textbox.Size = new System.Drawing.Size(120, 20);
+            this.local_port_textbox.Size = new System.Drawing.Size(178, 26);
             this.local_port_textbox.TabIndex = 10;
             this.local_port_textbox.Visible = false;
             this.local_port_textbox.TextChanged += new System.EventHandler(this.local_port_textbox_TextChanged);
@@ -542,9 +571,11 @@
             this.target_container.Controls.Add(this.target_ip_textbox);
             this.target_container.Controls.Add(this.target_port_textbox);
             this.target_container.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
-            this.target_container.Location = new System.Drawing.Point(363, 5);
+            this.target_container.Location = new System.Drawing.Point(544, 8);
+            this.target_container.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.target_container.Name = "target_container";
-            this.target_container.Size = new System.Drawing.Size(333, 299);
+            this.target_container.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.target_container.Size = new System.Drawing.Size(500, 460);
             this.target_container.TabIndex = 11;
             this.target_container.TabStop = false;
             this.target_container.Text = "Target";
@@ -557,9 +588,10 @@
             "11112",
             "4242",
             "[Custom]"});
-            this.target_port_combobox.Location = new System.Drawing.Point(182, 151);
+            this.target_port_combobox.Location = new System.Drawing.Point(273, 232);
+            this.target_port_combobox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.target_port_combobox.Name = "target_port_combobox";
-            this.target_port_combobox.Size = new System.Drawing.Size(121, 21);
+            this.target_port_combobox.Size = new System.Drawing.Size(180, 28);
             this.target_port_combobox.TabIndex = 14;
             this.target_port_combobox.Text = "104";
             this.target_port_combobox.TextChanged += new System.EventHandler(this.target_port_combobox_TextChanged);
@@ -569,9 +601,10 @@
             this.target_ip_text.AutoSize = true;
             this.target_ip_text.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.target_ip_text.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.target_ip_text.Location = new System.Drawing.Point(179, 100);
+            this.target_ip_text.Location = new System.Drawing.Point(268, 154);
+            this.target_ip_text.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.target_ip_text.Name = "target_ip_text";
-            this.target_ip_text.Size = new System.Drawing.Size(30, 18);
+            this.target_ip_text.Size = new System.Drawing.Size(46, 26);
             this.target_ip_text.TabIndex = 12;
             this.target_ip_text.Text = "null";
             this.target_ip_text.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.target_ip_text_MouseDoubleClick);
@@ -580,9 +613,10 @@
             // 
             this.target_port_label.AutoSize = true;
             this.target_port_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.target_port_label.Location = new System.Drawing.Point(114, 151);
+            this.target_port_label.Location = new System.Drawing.Point(171, 232);
+            this.target_port_label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.target_port_label.Name = "target_port_label";
-            this.target_port_label.Size = new System.Drawing.Size(45, 18);
+            this.target_port_label.Size = new System.Drawing.Size(68, 29);
             this.target_port_label.TabIndex = 11;
             this.target_port_label.Text = "Port:";
             // 
@@ -590,9 +624,10 @@
             // 
             this.target_ip_label.AutoSize = true;
             this.target_ip_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
-            this.target_ip_label.Location = new System.Drawing.Point(65, 100);
+            this.target_ip_label.Location = new System.Drawing.Point(98, 154);
+            this.target_ip_label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.target_ip_label.Name = "target_ip_label";
-            this.target_ip_label.Size = new System.Drawing.Size(94, 18);
+            this.target_ip_label.Size = new System.Drawing.Size(136, 26);
             this.target_ip_label.TabIndex = 10;
             this.target_ip_label.Text = "IP Address:";
             // 
@@ -601,18 +636,20 @@
             this.target_ae_text.AutoSize = true;
             this.target_ae_text.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.target_ae_text.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.target_ae_text.Location = new System.Drawing.Point(179, 47);
+            this.target_ae_text.Location = new System.Drawing.Point(268, 72);
+            this.target_ae_text.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.target_ae_text.Name = "target_ae_text";
-            this.target_ae_text.Size = new System.Drawing.Size(120, 18);
+            this.target_ae_text.Size = new System.Drawing.Size(180, 26);
             this.target_ae_text.TabIndex = 10;
             this.target_ae_text.Text = "target_ae_default";
             this.target_ae_text.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.target_ae_text_MouseDoubleClick);
             // 
             // target_ae_textbox
             // 
-            this.target_ae_textbox.Location = new System.Drawing.Point(182, 46);
+            this.target_ae_textbox.Location = new System.Drawing.Point(273, 71);
+            this.target_ae_textbox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.target_ae_textbox.Name = "target_ae_textbox";
-            this.target_ae_textbox.Size = new System.Drawing.Size(121, 20);
+            this.target_ae_textbox.Size = new System.Drawing.Size(180, 26);
             this.target_ae_textbox.TabIndex = 5;
             this.target_ae_textbox.Visible = false;
             this.target_ae_textbox.TextChanged += new System.EventHandler(this.target_ae_textbox_TextChanged);
@@ -623,18 +660,20 @@
             // 
             this.target_ae_label.AutoSize = true;
             this.target_ae_label.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
-            this.target_ae_label.Location = new System.Drawing.Point(17, 47);
+            this.target_ae_label.Location = new System.Drawing.Point(26, 72);
+            this.target_ae_label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.target_ae_label.Name = "target_ae_label";
-            this.target_ae_label.Size = new System.Drawing.Size(142, 18);
+            this.target_ae_label.Size = new System.Drawing.Size(205, 26);
             this.target_ae_label.TabIndex = 1;
             this.target_ae_label.Text = "Application Entity:";
             // 
             // target_ip_textbox
             // 
-            this.target_ip_textbox.Location = new System.Drawing.Point(182, 100);
+            this.target_ip_textbox.Location = new System.Drawing.Point(273, 154);
+            this.target_ip_textbox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.target_ip_textbox.MaxLength = 15;
             this.target_ip_textbox.Name = "target_ip_textbox";
-            this.target_ip_textbox.Size = new System.Drawing.Size(121, 20);
+            this.target_ip_textbox.Size = new System.Drawing.Size(180, 26);
             this.target_ip_textbox.TabIndex = 13;
             this.target_ip_textbox.Visible = false;
             this.target_ip_textbox.TextChanged += new System.EventHandler(this.target_ip_textbox_TextChanged);
@@ -643,9 +682,10 @@
             // 
             // target_port_textbox
             // 
-            this.target_port_textbox.Location = new System.Drawing.Point(182, 151);
+            this.target_port_textbox.Location = new System.Drawing.Point(273, 232);
+            this.target_port_textbox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.target_port_textbox.Name = "target_port_textbox";
-            this.target_port_textbox.Size = new System.Drawing.Size(121, 20);
+            this.target_port_textbox.Size = new System.Drawing.Size(180, 26);
             this.target_port_textbox.TabIndex = 15;
             this.target_port_textbox.TextChanged += new System.EventHandler(this.target_port_textbox_TextChanged);
             this.target_port_textbox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.target_port_textbox_KeyPress);
@@ -653,11 +693,10 @@
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(967, 512);
+            this.ClientSize = new System.Drawing.Size(1450, 788);
             this.Controls.Add(this.tabControl1);
-            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Form1";
             this.tabControl1.ResumeLayout(false);

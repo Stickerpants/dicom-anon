@@ -8,12 +8,13 @@ using System.Net.Sockets;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
-using Dicom;
 using System.Text.RegularExpressions;
 
-
+using Dicom;
+using Dicom.Media;
 using Dicom.Imaging;
 using Dicom.IO.Buffer;
+using System.Collections;
 
 namespace WindowsFormsApplication1
 {
@@ -32,9 +33,12 @@ namespace WindowsFormsApplication1
             {
                 xmlDoc = XDocument.Load("parameters.xml");
             }
-            catch (FileNotFoundException g)
+            catch (FileNotFoundException e)
             {
-                MessageBox.Show("File not found");
+                xmlDoc = new XDocument(
+                    new XComment("This .xml file will store the parameters that you want anonymized under the names you have given to each set"),
+                    new XElement("Root")
+                );
             }
             InitializeComponent();
             ePlistBox();
@@ -56,27 +60,46 @@ namespace WindowsFormsApplication1
             DicomFile file = DicomFile.Open(filename);
             DicomDataset dataSet = file.Dataset;
             DicomTag tag = null;
-            var ravioli = new List<dictItem>();
 
+            int i = 0;
+            
             foreach (string input in tagList)
             {
-                ravioli = Lookup(input);
-                foreach (dictItem entry in ravioli)
-                {
-                    tag = entry.tag;
-                }
-                    //need to make case insensitive
-                    
-                    //DicomTag tag = DicomTag.Parse(input);
+                                
+                //need to make case insensitive
+                //DicomTag tag = DicomTag.Parse(input);
 
-                if (dataSet.Contains(tag))
+                ArrayList tags = new ArrayList();
+                foreach (DicomDictionaryEntry thing in DicomDictionary.Default)
                 {
-                    addToCrosswalk(tag.Element);
-                    dataSet.Add<string>(tag, "PLACEHOLDER");
-                    //string info = dataSet.Get<string>(tag, "not contained");
-                    //tag.ToString().Replace(info, "placeholder");
-                    //dfw.Write(target, fileMeta, dataSet);
+                    if (thing.Tag.ToString().Equals(input))
+                    {
+                        MessageBox.Show("found matching tag for " + thing.Tag.ToString());
+                        tags.Add(thing.Tag);
+                    }
                 }
+
+                foreach(DicomTag thing in tags)
+                {
+                    MessageBox.Show("anonymizing tag " + thing.ToString());
+                    dataSet.Remove(thing);
+                }
+                
+                //string info = dataSet.Get<string>(tag, "not contained");
+                //tag.ToString().Replace(info, "placeholder");
+                //dfw.Write(target, fileMeta, dataSet);
+                i++;
+            }
+
+            MessageBox.Show("writing new dicom file");
+            DicomFile anon = new DicomFile(dataSet);
+            try
+            {
+                anon.Save(@"anonymized" + i + ".dcm");
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show("Error: " + exc.ToString());
             }
         }
 
@@ -112,12 +135,12 @@ namespace WindowsFormsApplication1
         {
             this.existingParameters.Items.Clear();
 
-            IEnumerable<XElement> elementos = xmlDoc.Root.Elements();
+            //IEnumerable<XElement> elementos = xmlDoc.Root.Elements();
 
-            foreach (XElement xelem in elementos)
-            {
-                this.existingParameters.Items.Add(xelem.Name);
-            }
+           // foreach (XElement xelem in elementos)
+            //{
+              //  this.existingParameters.Items.Add(xelem.Name);
+            //}
         }
 
         public string RemoveWhiteSpace(string str)
@@ -160,83 +183,6 @@ namespace WindowsFormsApplication1
 
             NewParameter form = new NewParameter(this, elementos, y);
             form.Show();
-        }
-
-        public List<dictItem> Lookup(String term)
-        {
-            var results = new List<dictItem>();
-
-            DicomDictionary dd = DicomDictionary.Default;
-            IEnumerator<DicomDictionaryEntry> de = dd.GetEnumerator();
-
-            term = term.ToLower().Replace(",", "").Replace("(", "").Replace(")", "").Replace(" ", "");
-            term = term.Replace("'s", "");
-            term = term.Replace("’s", "");
-            term = term.Replace("patients", "patient");
-
-            var tagFormatFull = new Regex("^[0-9a-f]{8}$");
-            var tagFormatGroup = new Regex("^[0-9a-f]{4}$");
-
-            var mode = Mode.desc;
-            if (tagFormatFull.Match(term).Success) mode = Mode.tag;
-            else if (tagFormatGroup.Match(term).Success) mode = Mode.group;
-            else if (term == "everything") mode = Mode.all;
-
-            while (de.MoveNext())
-            {
-                DicomDictionaryEntry ent = de.Current;
-
-                string comp = "";
-
-                switch (mode)
-                {
-                    case Mode.tag:
-                        comp = ent.Tag.ToString("J", null);
-                        break;
-
-                    case Mode.group:
-                        comp = ent.Tag.ToString("J", null).Substring(0, 4);
-                        break;
-
-                    case Mode.desc:
-                        comp = ent.Name.ToLower();
-                        comp = comp.Replace("'s", "");
-                        comp = comp.Replace("’s", "");
-                        comp = comp.Replace(" ", "");
-                        break;
-                }
-
-                comp = comp.ToLower();
-
-                if (comp.Contains(term) || mode == Mode.all)
-                {
-                    var vm1 = "1";
-
-                    if (ent.ValueMultiplicity.Maximum == int.MaxValue)
-                        vm1 = String.Format("{0} or more", ent.ValueMultiplicity.Minimum);
-                    else if (ent.ValueMultiplicity.Maximum == 1)
-                    {
-                        vm1 = String.Format("{0}", ent.ValueMultiplicity.Maximum);
-                    }
-                    else if (ent.ValueMultiplicity.Maximum == ent.ValueMultiplicity.Minimum)
-                    {
-                        vm1 = String.Format("{0} exatly", ent.ValueMultiplicity.Minimum);
-                    }
-                    else if (ent.ValueMultiplicity.Maximum > 1)
-                        vm1 = String.Format("{0}-{1}", ent.ValueMultiplicity.Minimum, ent.ValueMultiplicity.Maximum);
-
-                    results.Add(new dictItem
-                    {
-                        //tag = ent.Tag.ToString().ToUpper(),
-                        tag = ent.Tag,
-                        description = ent.Name,
-                        vm = vm1,
-                        vr = ent.ValueRepresentations[0].ToString()
-                    });
-                }
-            }
-
-            return results;
         }
 
         private enum Mode
@@ -671,27 +617,15 @@ namespace WindowsFormsApplication1
               target_port_combobox.Visible = true;
         }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            DicomSender send = new DicomSender();
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            DialogResult result = openFileDialog1.ShowDialog(); // Show the dialog.
-            if (result == DialogResult.OK) // Test result.
-            {
-                this.sendFile.Text = openFileDialog1.FileName;
-                send.sendDicom(DicomFile.Open(@""+this.sendFile.Text));
-
-            }
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
-            Listener list = new Listener();
+            //catch exception where null text
+            Listener list = new Listener(int.Parse(this.local_port_textbox.Text));
         }
 
         private void button3_Click_1(object sender, EventArgs e)
         {
-            DicomSender send = new DicomSender();
+            DicomSender send = new DicomSender(this.target_ip_textbox.Text, int.Parse(this.target_port_textbox.Text), this.target_ae_textbox.Text, this.local_ae_textbox.Text);
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
             DialogResult result = openFileDialog1.ShowDialog(); // Show the dialog.
             if (result == DialogResult.OK) // Test result.

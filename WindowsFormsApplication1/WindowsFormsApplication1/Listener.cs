@@ -10,7 +10,7 @@ namespace WindowsFormsApplication1
 
         public Listener(int port = 5000)
         {
-            port = 5000;
+            this.port = port;
 
             //use the designated DICOM port as the default
             server = new DicomServer<DicomCStoreProvider>(port, null, null, ConsoleLogger.Instance);

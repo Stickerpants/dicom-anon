@@ -62,6 +62,7 @@
             this.sendFile = new System.Windows.Forms.TextBox();
             this.sendButton = new System.Windows.Forms.Button();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+
             this.directoryOpen = new System.Windows.Forms.Button();
             this.imageDisplay = new System.Windows.Forms.PictureBox();
             this.directoryBox = new System.Windows.Forms.TextBox();
@@ -87,7 +88,7 @@
             this.tabControl1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // port_value
+
             // 
             this.port_value.BackColor = System.Drawing.Color.Transparent;
             this.port_value.Controls.Add(this.sendButton);
@@ -138,6 +139,7 @@
             this.New.Size = new System.Drawing.Size(136, 45);
             this.New.TabIndex = 11;
             this.New.Text = "New";
+
             this.New.UseVisualStyleBackColor = true;
             this.New.Click += new System.EventHandler(this.New_Click);
             // 
@@ -164,7 +166,7 @@
             this.label2.Text = "Existing Parameters";
             // 
             // Edit
-            // 
+            //
             this.Edit.Location = new System.Drawing.Point(239, 447);
             this.Edit.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Edit.Name = "Edit";
@@ -207,7 +209,7 @@
             this.target_container.Text = "Target";
             // 
             // target_port_textbox
-            // 
+            //
             this.target_port_textbox.Location = new System.Drawing.Point(273, 232);
             this.target_port_textbox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.target_port_textbox.Name = "target_port_textbox";
@@ -218,7 +220,7 @@
             this.target_port_textbox.Leave += new System.EventHandler(this.target_port_textbox_Leave);
             // 
             // target_ip_textbox
-            // 
+            //
             this.target_ip_textbox.Location = new System.Drawing.Point(273, 154);
             this.target_ip_textbox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.target_ip_textbox.MaxLength = 15;
@@ -338,7 +340,7 @@
             this.local_container.Text = "Local";
             // 
             // local_port_textbox
-            // 
+            //
             this.local_port_textbox.Location = new System.Drawing.Point(276, 235);
             this.local_port_textbox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.local_port_textbox.Name = "local_port_textbox";
@@ -520,7 +522,7 @@
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
             // directoryOpen
-            // 
+            //
             this.directoryOpen.Location = new System.Drawing.Point(460, 669);
             this.directoryOpen.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.directoryOpen.Name = "directoryOpen";
@@ -613,7 +615,7 @@
             this.currentFileLabel.Text = "No input directory";
             // 
             // tabPage2
-            // 
+            //
             this.tabPage2.Controls.Add(this.Filepath);
             this.tabPage2.Controls.Add(this.OpenSingleFile);
             this.tabPage2.Controls.Add(this.Anonymize);
@@ -624,6 +626,7 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Anonymize";
             this.tabPage2.UseVisualStyleBackColor = true;
+
             // 
             // Anonymize
             // 

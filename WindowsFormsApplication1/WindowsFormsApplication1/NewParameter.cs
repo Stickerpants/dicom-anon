@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using System.IO;
 using System.Xml.Linq;
+using System.Text.RegularExpressions;
 
 namespace WindowsFormsApplication1
 {
@@ -63,10 +64,9 @@ namespace WindowsFormsApplication1
             {
                 if (parameters[i] != null)
                 {
-                    element.Add(new XElement(mainForm.RemoveWhiteSpace(parameters[i])));
+                    element.Add(new XElement((XName) ""));
                 }
             }
-
             xmlDoc.Save("parameters.xml");
 
             mainForm.ePlistBox();

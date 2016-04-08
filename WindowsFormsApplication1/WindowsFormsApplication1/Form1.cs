@@ -20,6 +20,7 @@ namespace WindowsFormsApplication1
 {
     public partial class Form1 : Form
     {
+        // Holds the filepaths of the directory we're visualizing.
         private string[] FileList;
         private int currentFile = 0;
         private XDocument xmlDoc = null;
@@ -316,13 +317,29 @@ namespace WindowsFormsApplication1
             this.informationBox.Text += text;
         }
 
+        // When the "Open" button is pushed
         private void directoryOpen_Click(object sender, EventArgs e)
         {
-            FileList = Directory.GetFiles(this.directoryBox.Text);
+            // If there's nothing useful then don't try to open the folder.
+            if(string.IsNullOrWhiteSpace(this.directoryBox.Text) || !Directory.Exists(this.directoryBox.Text))
+            {
+                MessageBox.Show(this, "Given directory path was not valid!");
+                return;
+            }
+            // Populate list with filepaths from the given directory.
+            FileList = Directory.GetFiles(this.directoryBox.Text, "*.dcm");
+
+            // Reset to null if we got no files back.
+            if(FileList.Length == 0)
+            {
+                FileList = null;
+            }
+            // Reset and refresh display.
             currentFile = 0;
             updateDisplay();
         }
 
+        // Redirect method routes call to the "open" handler, when "enter" is pressed.
         private void directoryBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == '\r')
@@ -333,20 +350,24 @@ namespace WindowsFormsApplication1
 
         private void goLeft_Click(object sender, EventArgs e)
         {
+            // Move left and update.
             moveImage(-1);
             updateDisplay();
         }
 
         private void goRight_Click(object sender, EventArgs e)
         {
+            // Move right and update.
             moveImage(1);
             updateDisplay();
         }
 
         private void moveImage(int stride)
         {
+            // Do nothing if we have no filepaths yet.
             if (FileList == null) { return; }
 
+            // Performs wrap-around if we go past the last file.
             currentFile = (currentFile + stride) % FileList.Length;
             if (currentFile < 0)
             {
@@ -357,14 +378,15 @@ namespace WindowsFormsApplication1
 
         private void updateDisplay()
         {
+            // Don't display if we have no filepaths yet.
             if (FileList == null) { return; }
 
-            // Change displayed image
+            // Change displayed image.
             var newFile = FileList[currentFile];
             var image = new DicomImage(newFile);
             this.imageDisplay.Image = image.RenderImage().AsBitmap();
 
-            // Change filename display
+            // Change filename display.
             this.currentFileLabel.Text = Path.GetFileName(newFile);
 
             // Change metadata display
@@ -374,14 +396,12 @@ namespace WindowsFormsApplication1
             new DicomDatasetWalker(data.Dataset).Walk(new DumpWalker(this));
         }
 
-        /*var dataRep = data.Dataset
-            .Select(x => String.Format("{0}: {1}\r\n", x.Tag.DictionaryEntry.Name, String.Join(@"\", ((DicomElement) x).Get<string[]>())))
-            .Aggregate((seed, e) => seed + e); 
-        this.informationBox.Text = dataRep;*/
-
         /*
-            x.Tag.ToString() + ": " + x.ValueRepresentation.ToString() + */
-
+         * The dump walker iterates a Dataset and prints out all of the
+         * DICOM tags in a human-readable format. Large data items are truncated
+         * and not displayed. Nested tags are handled properly and shown with
+         * indentation.
+         */
         private class DumpWalker : IDicomDatasetWalker
         {
             int _level = 0;

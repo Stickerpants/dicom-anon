@@ -25,6 +25,8 @@ namespace WindowsFormsApplication1
         private XDocument xmlDoc = null;
         StreamWriter sw = null;
         private List<string> tagList = new List<string>();
+        //private List<string> generalParameters = new List<string>();
+        string path;
 
         public Form1()
         {
@@ -54,21 +56,20 @@ namespace WindowsFormsApplication1
         {
 
             /*when an element in the taglist matches a tag in the
-            dicom file, replace the information with "placeholder"*/
+            dicom file, remove it from the dataset and add it to the crosswalk for later reference*/
             string filename = Filepath.Text;
             DicomFile file = DicomFile.Open(filename);
             DicomDataset dataSet = file.Dataset;
-            DicomTag tag = null;
+
+            path = "C:\\Users\\Tyler\\Documents\\Schoolwork\\Third Year\\COSC 310\\CrosswalkTable.txt";
 
             int i = 0;
-            
-            foreach (string input in tagList)
-            {
-                                
-                //need to make case insensitive
-                //DicomTag tag = DicomTag.Parse(input);
 
-                ArrayList tags = new ArrayList();
+            List<DicomTag> tags = new List<DicomTag>();
+
+            foreach (string input in tagList)
+            {                     
+
                 foreach (DicomDictionaryEntry thing in DicomDictionary.Default)
                 {
                     if (thing.Tag.ToString().Equals(input))
@@ -77,17 +78,15 @@ namespace WindowsFormsApplication1
                         tags.Add(thing.Tag);
                     }
                 }
+         
+            }
 
-                foreach(DicomTag thing in tags)
-                {
-                    MessageBox.Show("anonymizing tag " + thing.ToString());
-                    dataSet.Remove(thing);
-                }
-                
-                //string info = dataSet.Get<string>(tag, "not contained");
-                //tag.ToString().Replace(info, "placeholder");
-                //dfw.Write(target, fileMeta, dataSet);
-                i++;
+            addPatientInfo(tags, dataSet, file.Dataset.Get<String>(DicomTag.PatientName));
+
+            foreach (DicomTag thing in tags)
+            {
+                MessageBox.Show("anonymizing tag " + thing.ToString());
+                dataSet.Remove(thing);
             }
 
             MessageBox.Show("writing new dicom file");
@@ -134,12 +133,12 @@ namespace WindowsFormsApplication1
         {
             this.existingParameters.Items.Clear();
 
-            //IEnumerable<XElement> elementos = xmlDoc.Root.Elements();
+            IEnumerable<XElement> elementos = xmlDoc.Root.Elements();
 
-           // foreach (XElement xelem in elementos)
-            //{
-              //  this.existingParameters.Items.Add(xelem.Name);
-            //}
+            foreach (XElement xelem in elementos)
+            {
+                this.existingParameters.Items.Add(xelem.Name);
+            }
         }
 
         public string RemoveWhiteSpace(string str)
@@ -157,7 +156,7 @@ namespace WindowsFormsApplication1
         private void Submit_Click_1(object sender, EventArgs e)
         {
             string title = this.existingParameters.SelectedItem.ToString();
-            addToList(title);
+            addToTagList(title);
             MessageBox.Show("The selected parameters have been added!");
         }
 
@@ -184,42 +183,132 @@ namespace WindowsFormsApplication1
             form.Show();
         }
 
-        private enum Mode
-        {
-            tag,
-            desc,
-            group,
-            all
-        };
-
-        public void addToCrosswalk(List<string> tagList)
-        {
-            sw = new StreamWriter(File.OpenWrite("C:\\Users\\Tyler\\Documents\\Schoolwork\\Third Year\\COSC 310\\CrosswalkTable.txt"));
-            foreach (string item in tagList)
-            {
-                sw.Write(item + "    |    ");
-            }
-            sw.Dispose();
-        }
-
-        public void addToCrosswalk(ushort el)
-        {
-            sw = new StreamWriter(File.OpenWrite("C:\\Users\\Tyler\\Documents\\Schoolwork\\Third Year\\COSC 310\\CrosswalkTable.txt"));
-            sw.Write(el);
-            sw.Dispose();
-        }
-
         //Searches through the xml file for the specified title and adds all child nodes to the tagList
-        public void addToList(string title)
+        public void addToTagList(string title)
         {
             XElement titleSearch = xmlDoc.Root.Element(title);
             IEnumerable<XElement> children = titleSearch.Descendants();
             foreach (XElement child in children)
             {
-                tagList.Add(child.Name.ToString());
+                tagList.Add(child.Value.ToString());
+            }
+        }
+
+        //A general set of parameters for every patient
+        //List<string> getGeneralParameters()
+        //{
+     
+            //generalParameters.Add("PatientName");
+            //generalParameters.Add("PatientAge");
+            //generalParameters.Add("PatientSex");
+            //generalParameters.Add("PatientWeight");
+            //generalParameters.Add("PatientHeight");
+            //generalParameters.Add("ReferringPhysician");
+            //generalParameters.Add("Address");
+            //generalParameters.Add("PhoneNumber");
+            //generalParameters.Add("BloodType");
+            //generalParameters.Add("Priority");
+            //generalParameters.Add("Status");
+
+            //return generalParameters;
+        //}
+
+        List<string> gettagList()
+        {
+            return tagList;
+        }
+
+        //Writes the general set of parameters for every patient to the crosswalk
+        //public void addParametersToCrosswalk(List<string> generalParameters)
+        //{
+            //using (StreamWriter sw = File.AppendText(path))
+            //{
+                //sw.Write(crosswalkFormatter("ID:", 10) + "|    ");
+
+                //foreach (string item in generalParameters)
+                //{
+                    //sw.Write(crosswalkFormatter(item + ":", 20) + "|    ");
+                //}
+            //}
+        //}
+
+        //Writes the patient's information to the correct location in the crosswalk table
+        public void addPatientInfo(List<DicomTag> tags, DicomDataset dataSet, string name)
+        {
+            string patientID = getID(name);
+
+            if (!File.Exists(path))
+            {
+                MessageBox.Show("Crosswalk table is being created");
+
+                using (StreamWriter sw = new StreamWriter(path, true))
+                {
+                    sw.Write(crosswalkFormatter("ID: " + patientID, 10) + " |   ");
+
+                    foreach (DicomTag tag in tags)
+                    {
+
+                        sw.Write(tag.DictionaryEntry.Keyword + ": " + dataSet.Get<string>(tag) + "|   ");
+
+                    }
+                    sw.WriteLine();
+                }
             }
 
-            addToCrosswalk(tagList);
+            else if (File.Exists(path))
+            {
+                var fileread = File.ReadAllText(path);
+                
+                //If the patient already exists in the crosswalk, don't add them again
+                if (fileread.Contains(patientID))
+                {
+                    MessageBox.Show("Patient already in crosswalk!");
+                }
+
+                else
+                {
+                    using (StreamWriter sw = new StreamWriter(path, true))
+                    {
+                        sw.Write(crosswalkFormatter("ID: " + patientID, 10) + " |   ");
+
+                        foreach (DicomTag tag in tags)
+                        {
+
+                            sw.Write(tag.DictionaryEntry.Keyword + ": " + dataSet.Get<string>(tag) + "|   ");
+
+                        }
+                        sw.WriteLine();
+                    }
+                    MessageBox.Show("Patient added to crosswalk");
+                }
+            }
+        }
+
+        //Gets the default hash code for each patient; to be used as the patientID in the crosswalk
+        public string getID(string name)
+        {
+            return Math.Abs(name.GetHashCode()).ToString();
+        }
+
+        //A helper class used to make the crosswalk table look tidy
+        public static string crosswalkFormatter(string value, int fixedlength)
+        {
+            int length = 0;
+            string returnVal = string.Empty;
+            try
+            {
+                length = value.Length;
+                returnVal = value;
+                for (int i = 0; i < fixedlength - length - 1; i++)
+                {
+                    returnVal = returnVal + " ";
+                }
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+            return returnVal;
         }
 
         public void appendToInfo(string text)

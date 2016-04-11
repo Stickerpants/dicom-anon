@@ -27,7 +27,7 @@ namespace WindowsFormsApplication1
                 string poptext = "";
                 foreach (XElement xelem in ienum)
                 {
-                    poptext = poptext + xelem.Name.ToString() + "\r\n";
+                    poptext = poptext + xelem.Value + "\r\n";
                 }
                 this.parameterInput.Text = poptext;
             }
@@ -64,7 +64,7 @@ namespace WindowsFormsApplication1
             {
                 if (parameters[i] != null)
                 {
-                    element.Add(new XElement((XName) ""));
+                    element.Add(new XElement("Parameter"+i, mainForm.RemoveWhiteSpace(parameters[i])));
                 }
             }
             xmlDoc.Save("parameters.xml");
